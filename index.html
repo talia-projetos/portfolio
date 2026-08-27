@@ -140,11 +140,12 @@
     .exp-photos img:last-child { flex: 1; min-height: 118px; }
 
     /* ── SLIDE 4 · FERRAMENTAS ── */
-    .tools-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: .85rem; }
+    .tools-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: .85rem; }
     .tc { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); padding: 1.4rem; }
     .tc-h { font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--light); margin-bottom: 1rem; }
     .pills { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .pill { padding: .26rem .72rem; border-radius: 20px; font-size: 12px; font-weight: 500; }
+    .pill { display: inline-flex; align-items: center; gap: .3rem; padding: .26rem .72rem; border-radius: 20px; font-size: 12px; font-weight: 500; }
+    .pill img { width: 13px; height: 13px; display: block; flex-shrink: 0; }
     .pg { background: var(--green2); color: var(--green); }
     .pn { background: #EEECE8; color: var(--muted); }
 
@@ -205,6 +206,9 @@
     }
     .li-h { font-size: 12px; font-weight: 600; margin-bottom: .12rem; }
     .li-p { font-size: 11px; color: var(--muted); line-height: 1.55; }
+    .li-links { display: flex; gap: .75rem; margin-top: .3rem; }
+    .li-link { font-size: 10px; font-weight: 600; letter-spacing: .04em; color: var(--green); text-decoration: none; }
+    .li-link:hover { text-decoration: underline; }
 
     /* ── SLIDE 7 · FORMAÇÃO ── */
     .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
@@ -397,7 +401,7 @@
         <div class="tc">
           <div class="tc-h">Geotecnologias</div>
           <div class="pills">
-            <span class="pill pg">QGIS</span>
+            <span class="pill pg"><img src="https://cdn.simpleicons.org/qgis/5A9B7B" alt="">QGIS</span>
             <span class="pill pg">ArcGIS</span>
             <span class="pill pg">Google Earth Engine</span>
             <span class="pill pg">Google Earth Pro</span>
@@ -406,11 +410,11 @@
         <div class="tc">
           <div class="tc-h">Dados &amp; Programação</div>
           <div class="pills">
-            <span class="pill pg">Python</span>
-            <span class="pill pg">R</span>
-            <span class="pill pg">Power BI</span>
+            <span class="pill pg"><img src="https://cdn.simpleicons.org/python/5A9B7B" alt="">Python</span>
+            <span class="pill pg"><img src="https://cdn.simpleicons.org/r/5A9B7B" alt="">R</span>
+            <span class="pill pg"><img src="https://cdn.simpleicons.org/powerbi/5A9B7B" alt="">Power BI</span>
+            <span class="pill pg"><img src="https://cdn.simpleicons.org/visualstudiocode/5A9B7B" alt="">VS Code</span>
             <span class="pill pg">Excel</span>
-            <span class="pill pg">Google Sheets</span>
             <span class="pill pn">Automação</span>
             <span class="pill pn">IA aplicada</span>
           </div>
@@ -423,6 +427,15 @@
             <span class="pill pn">Análise documental</span>
             <span class="pill pn">Legislação ambiental</span>
             <span class="pill pn">Relatórios técnicos</span>
+          </div>
+        </div>
+        <div class="tc">
+          <div class="tc-h">Criação Visual</div>
+          <div class="pills">
+            <span class="pill pn"><img src="https://cdn.simpleicons.org/adobeillustrator/686868" alt="">Illustrator</span>
+            <span class="pill pn"><img src="https://cdn.simpleicons.org/adobephotoshop/686868" alt="">Photoshop</span>
+            <span class="pill pn">Design gráfico</span>
+            <span class="pill pn">Ilustração</span>
           </div>
         </div>
       </div>
@@ -484,6 +497,9 @@
               <div>
                 <div class="li-h">FIRST® LEGO® League</div>
                 <div class="li-p">Árbitra-Chefe, juíza voluntária e ex-competidora. 15 anos de envolvimento com robótica educacional no Brasil.</div>
+                <div class="li-links">
+                  <a class="li-link" href="https://www.firstlegoleague.org/" target="_blank" rel="noopener">firstlegoleague.org ↗</a>
+                </div>
               </div>
             </div>
             <div class="li">
@@ -498,6 +514,10 @@
               <div>
                 <div class="li-h">NASA Space Apps Challenge</div>
                 <div class="li-p">Equipe Hypatia — 2º lugar em Salvador (2020). Batata transgênica com B-12. Equipe 100% feminina.</div>
+                <div class="li-links">
+                  <a class="li-link" href="https://www.spaceappschallenge.org/" target="_blank" rel="noopener">spaceappschallenge.org ↗</a>
+                  <a class="li-link" href="https://ihac.ufba.br/pt/29190/" target="_blank" rel="noopener">Notícia IHAC/UFBA ↗</a>
+                </div>
               </div>
             </div>
             <div class="li">
