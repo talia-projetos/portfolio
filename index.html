@@ -4,30 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Talia Oliveira</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:     #F8F7F3;
-      --white:  #FFFFFF;
-      --text:   #1A1A1A;
-      --muted:  #686868;
-      --light:  #ABABAB;
-      --green:  #5A9B7B;
-      --green2: #EBF4EF;
-      --purple: #3C2E7A;
-      --border: #E5E3DC;
-      --r: 10px;
+      --bg:     #F5F3EE;
+      --ink:    #0C0C0C;
+      --green:  #2E6B4A;
+      --rule:   #C8C4BA;
+      --muted:  #666;
     }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; overflow: hidden; }
-    body { font-family: 'Inter', sans-serif; color: var(--text); font-size: 15px; line-height: 1.7; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--bg);
+    }
 
-    /* SLIDESHOW */
+    /* ── SLIDESHOW ── */
     #ss {
       position: fixed; top: 0; left: 0; width: 100%;
-      transition: transform .9s cubic-bezier(.77,0,.175,1);
+      transition: transform .85s cubic-bezier(.77,0,.175,1);
       will-change: transform;
     }
     .slide {
@@ -35,218 +34,274 @@
       display: flex; flex-direction: column; justify-content: center;
       background: var(--bg); position: relative; overflow: hidden;
     }
-    .slide.w  { background: var(--white); }
-    .slide.dp { background: var(--purple); color: #fff; }
-    .slide.dt { background: #1B3D2B; color: #fff; }
-    .slide.dg { background: #28573F; color: #fff; }
+    .slide.w  { background: #FFFFFF; }
+    .slide.dk { background: var(--ink); color: #F5F3EE; }
+    .slide.dg { background: #1A3328; color: #F5F3EE; }
 
-    .wrap { max-width: 1020px; margin: 0 auto; padding: 64px 3rem; width: 100%; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 3rem; width: 100%; }
 
-    /* CHROME */
-    #topbar {
-      position: fixed; top: 0; left: 0; right: 0; height: 52px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; z-index: 200; transition: color .5s;
+    /* ── GHOST SLIDE NUMBER ── */
+    .ghost {
+      position: absolute; bottom: -0.12em; right: 2.5rem;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 36vh; font-weight: 700; line-height: 1;
+      color: rgba(0,0,0,.035); pointer-events: none; user-select: none;
     }
-    .tb-name { font-size: 13px; font-weight: 600; letter-spacing: -.01em; }
-    .tb-link { font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; text-decoration: none; color: inherit; opacity: .45; transition: opacity .2s; }
+    .slide.dk .ghost, .slide.dg .ghost { color: rgba(255,255,255,.04); }
+
+    /* ── CHROME ── */
+    #topbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 52px; z-index: 200; transition: color .4s;
+    }
+    .tb-name { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .tb-link { font-size: 11px; text-decoration: none; color: inherit; opacity: .45; transition: opacity .2s; letter-spacing: .04em; }
     .tb-link:hover { opacity: 1; }
 
     #dots {
-      position: fixed; right: 1.75rem; top: 50%;
+      position: fixed; right: 1.6rem; top: 50%;
       transform: translateY(-50%);
-      display: flex; flex-direction: column; gap: 7px; z-index: 200;
+      display: flex; flex-direction: column; gap: 6px; z-index: 200;
     }
-    .dot { width: 5px; height: 5px; border-radius: 3px; cursor: pointer; transition: all .35s; background: var(--light); }
-    .dot.active { height: 20px; background: var(--green); }
+    .dot { width: 4px; height: 4px; border-radius: 0; cursor: pointer; transition: all .3s; background: var(--rule); }
+    .dot.active { height: 18px; background: var(--green); }
 
     #btmbar {
-      position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+      position: fixed; bottom: 0; left: 0; right: 0;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; z-index: 200; font-size: 12px; transition: color .5s;
+      padding: 0 3rem; height: 46px; z-index: 200;
+      font-size: 11px; letter-spacing: .04em; transition: color .4s;
     }
-    .btm-left { display: flex; align-items: center; gap: 1rem; }
-    .btm-num { letter-spacing: .04em; opacity: .35; font-size: 11px; }
-    .btm-lbl { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .3; }
+    .btm-left { display: flex; align-items: center; gap: 1.25rem; }
+    .btm-num { opacity: .35; }
+    .btm-lbl { opacity: .25; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: 9px; }
     .arrows { display: flex; gap: .5rem; }
-    .arr { width: 32px; height: 32px; border-radius: 50%; border: 1px solid currentColor; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: .25; transition: opacity .2s; user-select: none; font-size: 12px; }
-    .arr:hover { opacity: .65; }
-    .arr.off { opacity: .08; pointer-events: none; }
+    .arr { width: 30px; height: 30px; border: 1px solid currentColor; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: .2; transition: opacity .2s; user-select: none; font-size: 11px; }
+    .arr:hover { opacity: .6; }
+    .arr.off { opacity: .06; pointer-events: none; }
 
-    /* UTILS */
-    .tag { display: block; margin-bottom: 1.5rem; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--green); }
-    .dp .tag, .dt .tag, .dg .tag { color: rgba(255,255,255,.4); }
+    /* ── SHARED ── */
+    .sec-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 1.75rem;
+    }
+    .dk .sec-label, .dg .sec-label { color: rgba(255,255,255,.4); }
 
-    .section-h { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--light); margin-bottom: .85rem; }
+    .rule { border: none; border-top: 1px solid var(--rule); }
+    .dk .rule, .dg .rule { border-color: rgba(255,255,255,.12); }
 
-    .btn { display: inline-flex; align-items: center; gap: .4rem; padding: .6rem 1.35rem; border-radius: 50px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all .2s; }
-    .btn-fill { background: var(--green); color: #fff; }
-    .btn-fill:hover { background: #4a8569; }
-    .btn-ghost { border: 1px solid var(--border); color: var(--muted); background: transparent; }
-    .btn-ghost:hover { border-color: var(--green); color: var(--green); }
-    .btn-white { background: #fff; color: #28573F; }
-    .btn-white:hover { background: #f0faf5; }
+    .link-out { color: var(--green); text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+    .link-out:hover { text-decoration: underline; }
 
-    /* ── SLIDE 0 · HERO ── */
-    .hero-grid { display: grid; grid-template-columns: 1fr 200px; gap: 2rem; align-items: center; }
-    .hero-kicker { display: flex; align-items: center; gap: .7rem; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); margin-bottom: 1.25rem; }
-    .hero-kicker::before { content:''; width: 24px; height: 2px; background: var(--green); flex-shrink: 0; }
-    h1 { font-size: clamp(3rem,7vw,5.6rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; margin-bottom: 1.25rem; }
-    h1 span { color: var(--green); }
-    .hero-bio { font-size: 15px; font-weight: 300; line-height: 1.85; color: var(--muted); max-width: 560px; margin-bottom: 2rem; }
-    .hero-act { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; }
-    .hero-loc { font-size: 12px; color: var(--light); }
-    .geo { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .gp { width: 92px; height: 92px; }
-    .gp1 { background: var(--green);  border-radius: 0 50% 50% 50%; }
-    .gp2 { background: var(--green2); border-radius: 50% 0 50% 50%; }
-    .gp3 { background: var(--green2); border-radius: 50% 50% 50% 0; }
-    .gp4 { background: var(--purple); opacity: .15; border-radius: 50% 50% 0 50%; }
+    a.btn-line {
+      display: inline-block;
+      font-size: 12px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--ink); border-bottom: 2px solid var(--green);
+      padding-bottom: 2px; transition: color .2s, border-color .2s;
+    }
+    a.btn-line:hover { color: var(--green); }
+    a.btn-line.light { color: #F5F3EE; border-color: rgba(255,255,255,.4); }
+    a.btn-line.light:hover { color: #fff; border-color: #fff; }
 
-    /* ── SLIDE 1 · SOBRE ── */
-    .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .sobre-text p { font-size: 16px; font-weight: 300; line-height: 1.9; color: var(--muted); }
+    /* ────────────────────────────────────────
+       SLIDE 0 — HERO
+    ──────────────────────────────────────── */
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem; align-items: end;
+    }
+    .hero-kicker {
+      font-size: 11px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 700; letter-spacing: -.02em; line-height: .92;
+      margin-bottom: 2rem;
+    }
+    h1 em { font-style: normal; color: var(--green); }
+    .hero-meta {
+      font-size: 12px; color: var(--muted); margin-bottom: 2rem;
+      line-height: 1.9;
+    }
+    .hero-cta { display: flex; gap: 2rem; align-items: center; }
+    .hero-loc { font-size: 11px; color: var(--rule); letter-spacing: .04em; }
+    .hero-accent {
+      width: 3px; height: 200px; background: var(--green);
+      flex-shrink: 0; align-self: stretch;
+    }
+
+    /* ────────────────────────────────────────
+       SLIDE 1 — SOBRE
+    ──────────────────────────────────────── */
+    .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .sobre-text { font-size: 16px; line-height: 1.85; font-weight: 400; }
     .sobre-text p + p { margin-top: 1.1rem; }
-    .scard { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); padding: 1.75rem; }
-    .sc-lbl { display: block; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--light); margin-bottom: .9rem; }
-    .v-list { display: flex; flex-direction: column; gap: .55rem; }
-    .v-item { display: flex; align-items: center; gap: .7rem; font-size: 13px; color: var(--text); }
-    .v-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-    .cdiv { margin: 1.25rem 0; border: none; border-top: 1px solid var(--border); }
-    .h-pills { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .h-pill { padding: .22rem .65rem; border-radius: 20px; font-size: 12px; background: var(--white); border: 1px solid var(--border); color: var(--muted); }
+    .sobre-aside { padding-top: .25rem; }
+    .aside-h { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: .75rem; margin-top: 1.5rem; }
+    .aside-h:first-child { margin-top: 0; }
+    .v-list { display: flex; flex-direction: column; gap: .4rem; font-size: 13px; }
+    .v-item { display: flex; gap: .6rem; align-items: baseline; }
+    .v-item::before { content: '—'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .hobby-list { font-size: 13px; color: var(--muted); line-height: 1.8; }
 
-    /* ── SLIDE 2 · IMPACTO ── */
-    .impact-h { font-size: clamp(2rem,4.5vw,3.2rem); font-weight: 600; letter-spacing: -.025em; line-height: 1.15; opacity: .82; margin-bottom: 3.5rem; }
-    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); }
-    .st { padding: 2rem 0; text-align: center; border-right: 1px solid rgba(255,255,255,.1); }
+    /* ────────────────────────────────────────
+       SLIDE 2 — IMPACTO
+    ──────────────────────────────────────── */
+    .impact-h {
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-weight: 400; line-height: 1.3;
+      color: var(--muted); margin-bottom: 3rem;
+      letter-spacing: -.01em;
+    }
+    .impact-h strong { color: #F5F3EE; font-weight: 700; }
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid rgba(255,255,255,.12); }
+    .st { padding: 2.5rem 0; border-right: 1px solid rgba(255,255,255,.1); padding-right: 2rem; padding-left: 2rem; }
+    .st:first-child { padding-left: 0; }
     .st:last-child { border-right: none; }
-    .st-n { font-size: clamp(4rem,10vw,7rem); font-weight: 700; letter-spacing: -.04em; color: var(--green); line-height: 1; margin-bottom: .5rem; }
-    .st-l { font-size: 13px; opacity: .45; line-height: 1.6; }
+    .st-n {
+      font-size: clamp(3.5rem, 9vw, 6.5rem); font-weight: 700;
+      letter-spacing: -.04em; line-height: .9;
+      color: var(--green); margin-bottom: .6rem;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .st-l { font-size: 12px; color: rgba(255,255,255,.5); line-height: 1.55; }
 
-    /* ── SLIDE 3 · EXPERIÊNCIA ── */
-    .exp-layout { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
-    .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
-    .ec { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 1.2rem 1.25rem; }
-    .ec-t { font-size: 13px; font-weight: 600; margin-bottom: .18rem; }
-    .ec-o { font-size: 11px; color: var(--green); font-weight: 600; margin-bottom: .5rem; letter-spacing: .01em; }
-    .ec-d { font-size: 12px; color: var(--muted); line-height: 1.6; }
-    .badge { display: inline-block; margin-top: .65rem; padding: .18rem .65rem; border-radius: 20px; font-size: 10px; font-weight: 600; letter-spacing: .01em; }
-    .badge.now  { background: var(--green2); color: var(--green); }
-    .badge.past { background: #EEECE8; color: var(--light); }
-    .exp-photos { display: flex; flex-direction: column; gap: .5rem; }
-    .exp-photos img { width: 100%; border-radius: var(--r); object-fit: cover; }
-    .exp-photos img:first-child { height: 178px; }
-    .exp-photos img:last-child { flex: 1; min-height: 118px; }
+    /* ────────────────────────────────────────
+       SLIDE 3 — EXPERIÊNCIA
+    ──────────────────────────────────────── */
+    .exp-list { margin-top: .5rem; }
+    .exp-row {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 2rem; align-items: baseline;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .exp-row:first-child { border-top: 1px solid var(--rule); }
+    .exp-title { font-size: 14px; font-weight: 700; margin-bottom: .2rem; }
+    .exp-org { font-size: 12px; color: var(--green); font-weight: 700; margin-bottom: .35rem; }
+    .exp-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .exp-period { font-size: 11px; color: var(--muted); white-space: nowrap; text-align: right; }
+    .exp-status { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-top: .35rem; }
+    .exp-status.now { color: var(--green); }
+    .exp-status.past { color: var(--rule); }
 
-    /* ── SLIDE 4 · FERRAMENTAS ── */
-    .tools-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: .85rem; }
-    .tc { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); padding: 1.4rem; }
-    .tc-h { font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--light); margin-bottom: 1rem; }
-    .pills { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .pill { display: inline-flex; align-items: center; gap: .3rem; padding: .26rem .72rem; border-radius: 20px; font-size: 12px; font-weight: 500; }
-    .pill img { width: 13px; height: 13px; display: block; flex-shrink: 0; }
-    .pg { background: var(--green2); color: var(--green); }
-    .pn { background: #EEECE8; color: var(--muted); }
+    /* ────────────────────────────────────────
+       SLIDE 4 — FERRAMENTAS
+    ──────────────────────────────────────── */
+    .tools-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .tool-group + .tool-group { margin-top: 1.75rem; }
+    .tool-h {
+      font-size: 10px; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: .6rem;
+    }
+    .tool-list {
+      font-size: 13px; line-height: 2;
+      border-left: 2px solid var(--green);
+      padding-left: .85rem;
+    }
+    .tool-logos { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1rem; }
+    .tl { display: flex; flex-direction: column; align-items: center; gap: .3rem; }
+    .tl img { width: 28px; height: 28px; display: block; }
+    .tl span { font-size: 10px; color: var(--muted); letter-spacing: .02em; }
 
-    /* ── SLIDE 5 · SANKOFA ── */
+    /* ────────────────────────────────────────
+       SLIDE 5 — SANKOFA EGBÉ
+    ──────────────────────────────────────── */
     .sankofa-layout { display: grid; grid-template-columns: 1fr auto; gap: 5rem; align-items: center; }
-    .sankofa-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #8ECBB0; margin-bottom: .6rem; }
-    h2.sankofa-title { font-size: clamp(2.6rem,6.5vw,4.8rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; color: #fff; margin-bottom: 1.5rem; }
-    h2.sankofa-title em { font-style: normal; color: #8ECBB0; }
-    .sankofa-desc { font-size: 15px; font-weight: 300; line-height: 1.9; color: rgba(255,255,255,.65); max-width: 540px; margin-bottom: 2rem; }
-    .sankofa-pills { display: flex; flex-wrap: wrap; gap: .45rem; }
-    .spill {
-      padding: .3rem .85rem; border-radius: 20px;
-      font-size: 11px; font-weight: 500; letter-spacing: .01em;
-      background: rgba(255,255,255,.09); color: rgba(255,255,255,.72);
-      border: 1px solid rgba(255,255,255,.16);
+    .s-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .75rem; }
+    h2.s-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700; letter-spacing: -.025em; line-height: .95;
+      color: #F5F3EE; margin-bottom: 1.5rem;
     }
-    .sankofa-geo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .sg { width: 88px; height: 88px; }
-    .sg1 { background: #8ECBB0; border-radius: 0 50% 50% 50%; }
-    .sg2 { background: rgba(255,255,255,.09); border-radius: 50% 0 50% 50%; }
-    .sg3 { background: rgba(255,255,255,.06); border-radius: 50% 50% 50% 0; }
-    .sg4 { background: #8ECBB0; opacity: .32; border-radius: 50% 50% 0 50%; }
+    h2.s-title em { font-style: normal; color: #6DBFA0; }
+    .s-desc { font-size: 15px; line-height: 1.85; color: rgba(255,255,255,.6); max-width: 500px; margin-bottom: 2rem; }
+    .s-list { display: flex; flex-direction: column; gap: .3rem; }
+    .s-item { font-size: 12px; color: rgba(255,255,255,.55); padding-left: 1.1rem; position: relative; }
+    .s-item::before { content: '→'; position: absolute; left: 0; color: #6DBFA0; font-weight: 700; }
+    .s-bars { display: flex; flex-direction: column; gap: 8px; width: 120px; }
+    .s-bar { height: 3px; background: rgba(255,255,255,.12); }
+    .s-bar:nth-child(1) { width: 100%; background: #6DBFA0; }
+    .s-bar:nth-child(2) { width: 75%; }
+    .s-bar:nth-child(3) { width: 55%; background: rgba(109,191,160,.4); }
+    .s-bar:nth-child(4) { width: 85%; }
+    .s-bar:nth-child(5) { width: 40%; }
+    .s-bar:nth-child(6) { width: 90%; background: rgba(109,191,160,.25); }
 
-    /* ── SLIDE 6 · PROJETOS + LIDERANÇA ── */
-    .pl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    /* ────────────────────────────────────────
+       SLIDE 6 — PROJETOS + LIDERANÇA
+    ──────────────────────────────────────── */
+    .pl-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .proj-block { padding: 2rem; border: 1px solid var(--rule); }
+    .proj-h { font-size: 15px; font-weight: 700; margin-bottom: .5rem; }
+    .proj-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+    .proj-tags { font-size: 11px; color: var(--muted); }
+    .proj-tags span + span::before { content: ' · '; }
 
-    /* project card */
-    .proj-card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 1.75rem;
-      text-decoration: none; color: inherit;
-      display: flex; flex-direction: column; gap: .75rem;
-      transition: border-color .2s, box-shadow .2s;
-      height: 100%;
+    .lead-row { padding: 1rem 0; }
+    .lead-row + .lead-row { border-top: 1px solid var(--rule); }
+    .lead-top { display: flex; align-items: baseline; gap: .75rem; margin-bottom: .25rem; }
+    .lead-tag { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green); flex-shrink: 0; }
+    .lead-h { font-size: 13px; font-weight: 700; }
+    .lead-p { font-size: 11px; color: var(--muted); line-height: 1.6; margin-bottom: .35rem; }
+    .lead-links { display: flex; gap: 1rem; }
+
+    /* ────────────────────────────────────────
+       SLIDE 7 — FORMAÇÃO
+    ──────────────────────────────────────── */
+    .edu-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .edu-row { padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
+    .edu-row:first-child { border-top: 1px solid var(--rule); }
+    .edu-row-top { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: baseline; margin-bottom: .25rem; }
+    .edu-deg { font-size: 13px; font-weight: 700; }
+    .edu-per { font-size: 11px; color: var(--muted); white-space: nowrap; }
+    .edu-inst { font-size: 11px; color: var(--green); font-weight: 700; margin-bottom: .2rem; }
+    .edu-det { font-size: 11px; color: var(--muted); line-height: 1.55; }
+    .cert-row { padding: .75rem 0; border-bottom: 1px solid var(--rule); font-size: 12px; }
+    .cert-row:first-child { border-top: 1px solid var(--rule); }
+    .cert-iss { font-size: 10px; color: var(--green); font-weight: 700; margin-top: .1rem; }
+    .certs-scroll { max-height: 340px; overflow-y: auto; }
+
+    /* ────────────────────────────────────────
+       SLIDE 8 — CONTATO
+    ──────────────────────────────────────── */
+    .ct-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    h2.ct-h {
+      font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 700;
+      letter-spacing: -.03em; line-height: .92;
+      color: #F5F3EE; margin-bottom: 1.5rem;
     }
-    .proj-card:hover { border-color: var(--green); box-shadow: 0 6px 24px rgba(90,155,123,.1); }
-    .proj-top { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
-    .proj-card h4 { font-size: 15px; font-weight: 600; line-height: 1.3; }
-    .parr { color: var(--light); font-size: 16px; flex-shrink: 0; transition: color .2s; margin-top: 1px; }
-    .proj-card:hover .parr { color: var(--green); }
-    .proj-card p { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
-    .ptags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: auto; }
-    .ptag { padding: .2rem .6rem; border-radius: 20px; font-size: 11px; font-weight: 500; background: #EEECE8; color: var(--muted); }
+    h2.ct-h em { font-style: normal; color: #6DBFA0; }
+    .ct-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.8; margin-bottom: 2.5rem; }
+    .ct-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .ct-item {}
+    .ct-lbl { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: .15rem; }
+    .ct-val { font-size: 14px; color: rgba(255,255,255,.75); text-decoration: none; }
+    .ct-val:hover { color: #6DBFA0; }
 
-    /* fll photo strip */
-    .fll-photos { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-bottom: .85rem; }
-    .fll-photos img { width: 100%; height: 100px; object-fit: cover; border-radius: var(--r); }
-
-    /* leadership list */
-    .lead-list { display: flex; flex-direction: column; }
-    .li { display: flex; align-items: flex-start; gap: .75rem; padding: .65rem 0; }
-    .li + .li { border-top: 1px solid var(--border); }
-    .li-tag {
-      font-size: 8px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-      color: var(--green); background: var(--green2);
-      padding: .22rem .5rem; border-radius: 4px;
-      white-space: nowrap; flex-shrink: 0; margin-top: 2px;
-    }
-    .li-h { font-size: 12px; font-weight: 600; margin-bottom: .12rem; }
-    .li-p { font-size: 11px; color: var(--muted); line-height: 1.55; }
-    .li-links { display: flex; gap: .75rem; margin-top: .3rem; }
-    .li-link { font-size: 10px; font-weight: 600; letter-spacing: .04em; color: var(--green); text-decoration: none; }
-    .li-link:hover { text-decoration: underline; }
-
-    /* ── SLIDE 7 · FORMAÇÃO ── */
-    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
-    .edu-item { padding: 1.25rem 1.4rem; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: .7rem; }
-    .edu-deg { font-size: 14px; font-weight: 600; margin-bottom: .18rem; }
-    .edu-inst { font-size: 11px; color: var(--green); font-weight: 600; letter-spacing: .01em; margin-bottom: .35rem; }
-    .edu-det { font-size: 12px; color: var(--muted); line-height: 1.6; }
-    .edu-per { font-size: 11px; color: var(--light); margin-top: .4rem; }
-    .certs-list { display: flex; flex-direction: column; gap: .45rem; max-height: 330px; overflow-y: auto; }
-    .cert { padding: .75rem 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); font-size: 12px; font-weight: 500; line-height: 1.45; color: var(--text); }
-    .cert.on { border-style: dashed; }
-    .cert-iss { font-size: 10px; color: var(--green); margin-top: .25rem; font-weight: 500; }
-
-    /* ── SLIDE 8 · CONTATO ── */
-    .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .ct-h { font-size: clamp(2.5rem,5vw,4.4rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.08; margin-bottom: 1.25rem; color: #fff; }
-    .ct-h em { font-style: normal; color: #8ECBB0; }
-    .ct-sub { font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.85; margin-bottom: 2rem; }
-    .ct-details { display: flex; flex-direction: column; gap: 1.5rem; }
-    .cd-lbl { display: block; font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: .2rem; }
-    .cd-val { font-size: 14px; color: rgba(255,255,255,.75); text-decoration: none; }
-    .cd-val:hover { color: #8ECBB0; }
-
-    /* RESPONSIVE */
+    /* ────────────────────────────────────────
+       RESPONSIVE
+    ──────────────────────────────────────── */
     @media (max-width: 720px) {
       html, body { overflow: auto; }
       #ss { position: relative; transform: none !important; }
       .slide { height: auto; min-height: 100vh; }
-      .wrap { padding: 80px 1.5rem; }
+      .wrap { padding: 70px 1.5rem; }
       #dots, #btmbar { display: none; }
-      .hero-grid, .sobre-grid, .sankofa-layout, .pl-grid, .ct-grid, .edu-grid { grid-template-columns: 1fr; }
-      .geo, .sankofa-geo { display: none; }
-      .stats-row { grid-template-columns: 1fr; }
-      .st { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); padding: 1.5rem 0; }
-      .st:last-child { border-bottom: none; }
-      .exp-layout { grid-template-columns: 1fr; }
-      .exp-photos, .fll-photos { display: none; }
-      .exp-grid, .tools-grid { grid-template-columns: 1fr; }
+      .hero-layout, .sobre-grid, .tools-layout, .sankofa-layout,
+      .pl-layout, .edu-layout, .ct-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .hero-accent { display: none; }
+      .exp-row { grid-template-columns: 1fr; gap: .5rem; }
     }
   </style>
 </head>
@@ -254,7 +309,7 @@
 
 <header id="topbar">
   <span class="tb-name">Talia Oliveira</span>
-  <a href="https://www.linkedin.com/in/talia-oliveira" target="_blank" rel="noopener" class="tb-link">LinkedIn ↗</a>
+  <a href="https://www.linkedin.com/in/talia-oliveira" target="_blank" rel="noopener" class="tb-link">LinkedIn</a>
 </header>
 
 <nav id="dots" aria-label="Slides">
@@ -284,75 +339,72 @@
 
   <!-- 0 · HERO -->
   <div class="slide" data-lbl="Intro">
+    <div class="ghost" aria-hidden="true">01</div>
     <div class="wrap">
-      <div class="hero-grid">
+      <div class="hero-layout">
         <div>
           <div class="hero-kicker">Bióloga · Analista Ambiental · Geoprocessamento</div>
-          <h1>Talia<br><span>Oliveira</span></h1>
-          <p class="hero-bio">Integro ciência, dados e tecnologia para construir soluções aplicadas à área ambiental. Atuo na Bacia do Rio São Francisco e acredito que perspectivas diversas resolvem o que a especialização isolada não alcança.</p>
-          <div class="hero-act">
-            <a href="mailto:taliaoliveir4@outlook.com" class="btn btn-fill">taliaoliveir4@outlook.com</a>
-            <a href="https://www.linkedin.com/in/talia-oliveira" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
-            <span class="hero-loc">Salvador / BA · Foz do Iguaçu / PR</span>
+          <h1>Talia<br><em>Oliveira</em></h1>
+          <div class="hero-meta">
+            Salvador / BA · Foz do Iguaçu / PR<br>
+            Bacia do Rio São Francisco
+          </div>
+          <div class="hero-cta">
+            <a href="mailto:taliaoliveir4@outlook.com" class="btn-line">taliaoliveir4@outlook.com</a>
+            <a href="https://www.linkedin.com/in/talia-oliveira" target="_blank" rel="noopener" class="btn-line">LinkedIn</a>
           </div>
         </div>
-        <div class="geo" aria-hidden="true">
-          <div class="gp gp1"></div><div class="gp gp2"></div>
-          <div class="gp gp3"></div><div class="gp gp4"></div>
-        </div>
+        <div class="hero-accent"></div>
       </div>
     </div>
   </div>
 
   <!-- 1 · SOBRE -->
   <div class="slide w" data-lbl="Sobre">
+    <div class="ghost" aria-hidden="true">02</div>
     <div class="wrap">
-      <span class="tag">Sobre</span>
+      <div class="sec-label">Sobre</div>
       <div class="sobre-grid">
         <div class="sobre-text">
           <p>Sou soteropolitana, bacharel em Ciências Biológicas. Minha trajetória começou na Escola SESI, onde surgiu o interesse por ciência e tecnologia — interesse que se transformou em carreira, voluntariado e projetos que atravessam diversas áreas.</p>
           <p>Hoje atuo como consultora técnica ambiental no Programa FPI/BA e como servidora voluntária no MPBA–NUSF. Geoprocessamento, dados, campo e tecnologia caminham juntos no meu dia a dia.</p>
         </div>
-        <div class="scard">
-          <span class="sc-lbl">Valores</span>
+        <div class="sobre-aside">
+          <div class="aside-h">Valores</div>
           <div class="v-list">
-            <div class="v-item"><div class="v-dot"></div>Ética e transparência</div>
-            <div class="v-item"><div class="v-dot"></div>Responsabilidade e respeito</div>
-            <div class="v-item"><div class="v-dot"></div>Aprendizado contínuo</div>
-            <div class="v-item"><div class="v-dot"></div>Preservação e ancestralidade</div>
+            <div class="v-item">Ética e transparência</div>
+            <div class="v-item">Responsabilidade e respeito</div>
+            <div class="v-item">Aprendizado contínuo</div>
+            <div class="v-item">Preservação e ancestralidade</div>
           </div>
-          <hr class="cdiv">
-          <span class="sc-lbl">Hobbies</span>
-          <div class="h-pills">
-            <span class="h-pill">Trilhas</span><span class="h-pill">Natação</span>
-            <span class="h-pill">Pedal</span><span class="h-pill">Design gráfico</span>
-            <span class="h-pill">Ilustração</span><span class="h-pill">Viagens</span>
-          </div>
+          <div class="aside-h">Interesses</div>
+          <div class="hobby-list">Trilhas · Natação · Pedal<br>Design gráfico · Ilustração · Viagens</div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 2 · IMPACTO -->
-  <div class="slide dp" data-lbl="Impacto">
+  <div class="slide dk" data-lbl="Impacto">
+    <div class="ghost" aria-hidden="true">03</div>
     <div class="wrap">
-      <p class="impact-h">Trajetória em<br>números.</p>
+      <p class="impact-h">Trajetória<br><strong>em números.</strong></p>
       <div class="stats-row">
         <div class="st">
           <div class="st-n">3+</div>
-          <div class="st-l">anos em análise<br>ambiental</div>
+          <div class="st-l">anos em análise ambiental</div>
         </div>
         <div class="st">
           <div class="st-n">2ª</div>
-          <div class="st-l">lugar NASA Space Apps<br>Equipe Hypatia · Salvador</div>
+          <div class="st-l">lugar NASA Space Apps — Equipe Hypatia</div>
         </div>
         <div class="st">
           <div class="st-n">15</div>
-          <div class="st-l">anos com a<br>FIRST® LEGO® League</div>
+          <div class="st-l">anos com a FIRST® LEGO® League</div>
         </div>
         <div class="st">
           <div class="st-n">6</div>
-          <div class="st-l">etapas de campo<br>FPI / BA</div>
+          <div class="st-l">etapas de campo FPI / BA</div>
         </div>
       </div>
     </div>
@@ -360,33 +412,52 @@
 
   <!-- 3 · EXPERIÊNCIA -->
   <div class="slide" data-lbl="Experiência">
+    <div class="ghost" aria-hidden="true">04</div>
     <div class="wrap">
-      <span class="tag">Experiência</span>
-      <div class="exp-layout">
-        <div class="exp-grid">
-          <div class="ec">
-            <div class="ec-t">Consultora Técnica Ambiental</div>
-            <div class="ec-o">Programa FPI / BA</div>
-            <div class="ec-d">Análises ambientais e geoespaciais, geoprocessamento e levantamentos de campo na Bacia do Rio São Francisco.</div>
-            <span class="badge now">Jul 2023 — presente</span>
+      <div class="sec-label">Experiência</div>
+      <div class="exp-list">
+        <div class="exp-row">
+          <div>
+            <div class="exp-title">Consultora Técnica Ambiental</div>
+            <div class="exp-org">Programa FPI / BA</div>
+            <div class="exp-desc">Análises ambientais e geoespaciais, geoprocessamento e levantamentos de campo na Bacia do Rio São Francisco.</div>
           </div>
-          <div class="ec">
-            <div class="ec-t">Servidora Voluntária</div>
-            <div class="ec-o">MPBA – NUSF</div>
-            <div class="ec-d">Apoio técnico ambiental, sistematização de dados e análise de informações territoriais.</div>
-            <span class="badge now">Jan 2026 — presente</span>
+          <div>
+            <div class="exp-period">Jul 2023</div>
+            <div class="exp-status now">presente</div>
           </div>
-          <div class="ec">
-            <div class="ec-t">Estagiária de Biologia</div>
-            <div class="ec-o">MPBA – NUSF</div>
-            <div class="ec-d">Geoprocessamento, análise espacial e elaboração de produtos técnicos de fauna e flora.</div>
-            <span class="badge past">Jul 2023 — Jul 2025</span>
+        </div>
+        <div class="exp-row">
+          <div>
+            <div class="exp-title">Servidora Voluntária</div>
+            <div class="exp-org">MPBA – NUSF</div>
+            <div class="exp-desc">Apoio técnico ambiental, sistematização de dados e análise de informações territoriais.</div>
           </div>
-          <div class="ec">
-            <div class="ec-t">Monitora Educacional</div>
-            <div class="ec-o">ZOOM Education for Life</div>
-            <div class="ec-d">Educação tecnológica e robótica educacional com acompanhamento de atividades.</div>
-            <span class="badge past">Jul 2024 — Out 2024</span>
+          <div>
+            <div class="exp-period">Jan 2026</div>
+            <div class="exp-status now">presente</div>
+          </div>
+        </div>
+        <div class="exp-row">
+          <div>
+            <div class="exp-title">Estagiária de Biologia</div>
+            <div class="exp-org">MPBA – NUSF</div>
+            <div class="exp-desc">Geoprocessamento, análise espacial e elaboração de produtos técnicos de fauna e flora.</div>
+          </div>
+          <div>
+            <div class="exp-period">Jul 2023 – Jul 2025</div>
+            <div class="exp-status past">encerrado</div>
+          </div>
+        </div>
+        <div class="exp-row">
+          <div>
+            <div class="exp-title">Monitora Educacional</div>
+            <div class="exp-org">ZOOM Education for Life</div>
+            <div class="exp-desc">Educação tecnológica e robótica educacional.</div>
+          </div>
+          <div>
+            <div class="exp-period">Jul – Out 2024</div>
+            <div class="exp-status past">encerrado</div>
           </div>
         </div>
       </div>
@@ -395,47 +466,37 @@
 
   <!-- 4 · FERRAMENTAS -->
   <div class="slide w" data-lbl="Ferramentas">
+    <div class="ghost" aria-hidden="true">05</div>
     <div class="wrap">
-      <span class="tag">Ferramentas &amp; Competências</span>
-      <div class="tools-grid">
-        <div class="tc">
-          <div class="tc-h">Geotecnologias</div>
-          <div class="pills">
-            <span class="pill pg"><img src="https://cdn.simpleicons.org/qgis/5A9B7B" alt="">QGIS</span>
-            <span class="pill pg">ArcGIS</span>
-            <span class="pill pg">Google Earth Engine</span>
-            <span class="pill pg">Google Earth Pro</span>
+      <div class="sec-label">Ferramentas &amp; Competências</div>
+      <div class="tools-layout">
+        <div>
+          <div class="tool-group">
+            <div class="tool-h">Geotecnologias</div>
+            <div class="tool-list">QGIS<br>ArcGIS<br>Google Earth Engine<br>Google Earth Pro</div>
+          </div>
+          <div class="tool-group">
+            <div class="tool-h">Dados &amp; Programação</div>
+            <div class="tool-list">Python · R<br>Power BI · Excel · Google Sheets<br>Automação · IA aplicada</div>
+          </div>
+          <div class="tool-logos">
+            <div class="tl"><img src="https://cdn.simpleicons.org/qgis/2E6B4A" alt="QGIS"><span>QGIS</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/python/2E6B4A" alt="Python"><span>Python</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/r/2E6B4A" alt="R"><span>R</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/powerbi/2E6B4A" alt="Power BI"><span>Power BI</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/visualstudiocode/2E6B4A" alt="VS Code"><span>VS Code</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/adobeillustrator/2E6B4A" alt="Illustrator"><span>Illustrator</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/adobephotoshop/2E6B4A" alt="Photoshop"><span>Photoshop</span></div>
           </div>
         </div>
-        <div class="tc">
-          <div class="tc-h">Dados &amp; Programação</div>
-          <div class="pills">
-            <span class="pill pg"><img src="https://cdn.simpleicons.org/python/5A9B7B" alt="">Python</span>
-            <span class="pill pg"><img src="https://cdn.simpleicons.org/r/5A9B7B" alt="">R</span>
-            <span class="pill pg"><img src="https://cdn.simpleicons.org/powerbi/5A9B7B" alt="">Power BI</span>
-            <span class="pill pg"><img src="https://cdn.simpleicons.org/visualstudiocode/5A9B7B" alt="">VS Code</span>
-            <span class="pill pg">Excel</span>
-            <span class="pill pn">Automação</span>
-            <span class="pill pn">IA aplicada</span>
+        <div>
+          <div class="tool-group">
+            <div class="tool-h">Análise Ambiental</div>
+            <div class="tool-list">Sensoriamento remoto<br>Diagnóstico ambiental<br>Análise documental<br>Legislação ambiental<br>Relatórios técnicos</div>
           </div>
-        </div>
-        <div class="tc">
-          <div class="tc-h">Análise Ambiental</div>
-          <div class="pills">
-            <span class="pill pn">Sensoriamento remoto</span>
-            <span class="pill pn">Diagnóstico ambiental</span>
-            <span class="pill pn">Análise documental</span>
-            <span class="pill pn">Legislação ambiental</span>
-            <span class="pill pn">Relatórios técnicos</span>
-          </div>
-        </div>
-        <div class="tc">
-          <div class="tc-h">Criação Visual</div>
-          <div class="pills">
-            <span class="pill pn"><img src="https://cdn.simpleicons.org/adobeillustrator/686868" alt="">Illustrator</span>
-            <span class="pill pn"><img src="https://cdn.simpleicons.org/adobephotoshop/686868" alt="">Photoshop</span>
-            <span class="pill pn">Design gráfico</span>
-            <span class="pill pn">Ilustração</span>
+          <div class="tool-group">
+            <div class="tool-h">Criação Visual</div>
+            <div class="tool-list">Design gráfico<br>Ilustração<br>Edição de imagem</div>
           </div>
         </div>
       </div>
@@ -443,25 +504,29 @@
   </div>
 
   <!-- 5 · SANKOFA EGBÉ -->
-  <div class="slide dt" data-lbl="Sankofa Egbé">
+  <div class="slide dg" data-lbl="Sankofa Egbé">
+    <div class="ghost" aria-hidden="true">06</div>
     <div class="wrap">
       <div class="sankofa-layout">
         <div>
-          <div class="sankofa-eyebrow">Iniciativa Social · Membro Fundadora</div>
-          <h2 class="sankofa-title">Coletivo<br><em>Sankofa Egbé</em></h2>
-          <p class="sankofa-desc">Levamos robótica, ciência, exatas e artes para crianças de terreiro em Pernambués, Salvador. O nome une o conceito Akan do Sankofa — olhar para as raízes para avançar — e Egbé, que em Yorubá significa grupo, coletivo.</p>
-          <div class="sankofa-pills">
-            <span class="spill">Robótica</span>
-            <span class="spill">Ciência</span>
-            <span class="spill">Exatas</span>
-            <span class="spill">Artes</span>
-            <span class="spill">Crianças de Terreiro</span>
-            <span class="spill">Pernambués, Salvador</span>
+          <div class="s-eyebrow">Iniciativa Social · Membro Fundadora</div>
+          <h2 class="s-title">Coletivo<br><em>Sankofa Egbé</em></h2>
+          <p class="s-desc">Levamos robótica, ciência, exatas e artes para crianças de terreiro em Pernambués, Salvador. O nome une o conceito Akan do Sankofa — olhar para as raízes para avançar — e Egbé, que em Yorubá significa grupo, coletivo.</p>
+          <div class="s-list">
+            <div class="s-item">Robótica e programação</div>
+            <div class="s-item">Ciências e exatas</div>
+            <div class="s-item">Artes e criatividade</div>
+            <div class="s-item">Crianças de terreiro</div>
+            <div class="s-item">Pernambués, Salvador / BA</div>
           </div>
         </div>
-        <div class="sankofa-geo" aria-hidden="true">
-          <div class="sg sg1"></div><div class="sg sg2"></div>
-          <div class="sg sg3"></div><div class="sg sg4"></div>
+        <div class="s-bars" aria-hidden="true">
+          <div class="s-bar"></div>
+          <div class="s-bar"></div>
+          <div class="s-bar"></div>
+          <div class="s-bar"></div>
+          <div class="s-bar"></div>
+          <div class="s-bar"></div>
         </div>
       </div>
     </div>
@@ -469,100 +534,92 @@
 
   <!-- 6 · PROJETOS + LIDERANÇA -->
   <div class="slide" data-lbl="Projetos">
+    <div class="ghost" aria-hidden="true">07</div>
     <div class="wrap">
-      <span class="tag">Projetos &amp; Liderança</span>
-      <div class="pl-grid">
-
+      <div class="sec-label">Projetos &amp; Liderança</div>
+      <div class="pl-layout">
         <div>
-          <div class="section-h">Projeto em destaque</div>
-          <div class="proj-card">
-            <div class="proj-top">
-              <h4>Hub de Torneio de Robótica</h4>
-            </div>
-            <p>Sistema web de gerenciamento de torneio FIRST® LEGO® League. Ranking ao vivo, formulários de juízes e sala de deliberação integrados ao Google Sheets via Apps Script.</p>
-            <div class="ptags">
-              <span class="ptag">JavaScript</span>
-              <span class="ptag">Apps Script</span>
-              <span class="ptag">Google Sheets</span>
-              <span class="ptag">FLL</span>
+          <div class="proj-block">
+            <div class="proj-h">Hub de Torneio de Robótica</div>
+            <div class="proj-desc">Sistema web de gerenciamento de torneio FIRST® LEGO® League. Ranking ao vivo, formulários de juízes e sala de deliberação integrados ao Google Sheets via Apps Script.</div>
+            <div class="proj-tags">
+              <span>JavaScript</span><span>Apps Script</span><span>Google Sheets</span><span>FLL</span>
             </div>
           </div>
         </div>
-
         <div>
-          <div class="section-h">Liderança &amp; Voluntariado</div>
-          <div class="lead-list">
-            <div class="li">
-              <span class="li-tag">FLL</span>
-              <div>
-                <div class="li-h">FIRST® LEGO® League</div>
-                <div class="li-p">Árbitra-Chefe, juíza voluntária e ex-competidora. 15 anos de envolvimento com robótica educacional no Brasil.</div>
-                <div class="li-links">
-                  <a class="li-link" href="https://www.firstlegoleague.org/" target="_blank" rel="noopener">firstlegoleague.org ↗</a>
-                </div>
-              </div>
+          <div class="lead-row">
+            <div class="lead-top">
+              <span class="lead-tag">FLL</span>
+              <span class="lead-h">FIRST® LEGO® League</span>
             </div>
-            <div class="li">
-              <span class="li-tag">OBR</span>
-              <div>
-                <div class="li-h">Olimpíada Brasileira de Robótica</div>
-                <div class="li-p">Juíza voluntária na etapa nacional (Robótica 2023, Centro de Convenções de Salvador).</div>
-              </div>
-            </div>
-            <div class="li">
-              <span class="li-tag">NASA</span>
-              <div>
-                <div class="li-h">NASA Space Apps Challenge</div>
-                <div class="li-p">Equipe Hypatia — 2º lugar em Salvador (2020). Batata transgênica com B-12. Equipe 100% feminina.</div>
-                <div class="li-links">
-                  <a class="li-link" href="https://www.spaceappschallenge.org/" target="_blank" rel="noopener">spaceappschallenge.org ↗</a>
-                  <a class="li-link" href="https://ihac.ufba.br/pt/29190/" target="_blank" rel="noopener">Notícia IHAC/UFBA ↗</a>
-                </div>
-              </div>
-            </div>
-            <div class="li">
-              <span class="li-tag">HCK</span>
-              <div>
-                <div class="li-h">Hackathon+ Porto Seguro</div>
-                <div class="li-p">Participação em 2019 com soluções colaborativas para desafios reais.</div>
-              </div>
+            <div class="lead-p">Árbitra-Chefe, juíza voluntária e ex-competidora. 15 anos de envolvimento com robótica educacional no Brasil.</div>
+            <div class="lead-links">
+              <a class="link-out" href="https://www.firstlegoleague.org/" target="_blank" rel="noopener">firstlegoleague.org →</a>
             </div>
           </div>
+          <div class="lead-row">
+            <div class="lead-top">
+              <span class="lead-tag">OBR</span>
+              <span class="lead-h">Olimpíada Brasileira de Robótica</span>
+            </div>
+            <div class="lead-p">Juíza voluntária na etapa nacional — Robótica 2023, Centro de Convenções de Salvador.</div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-top">
+              <span class="lead-tag">NASA</span>
+              <span class="lead-h">NASA Space Apps Challenge</span>
+            </div>
+            <div class="lead-p">Equipe Hypatia — 2º lugar em Salvador (2020). Batata transgênica com B-12. Equipe 100% feminina.</div>
+            <div class="lead-links">
+              <a class="link-out" href="https://www.spaceappschallenge.org/" target="_blank" rel="noopener">spaceappschallenge.org →</a>
+              <a class="link-out" href="https://ihac.ufba.br/pt/29190/" target="_blank" rel="noopener">Notícia IHAC/UFBA →</a>
+            </div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-top">
+              <span class="lead-tag">HCK</span>
+              <span class="lead-h">Hackathon+ Porto Seguro</span>
+            </div>
+            <div class="lead-p">Participação em 2019 com soluções colaborativas para desafios reais.</div>
+          </div>
         </div>
-
       </div>
     </div>
   </div>
 
   <!-- 7 · FORMAÇÃO -->
   <div class="slide w" data-lbl="Formação">
+    <div class="ghost" aria-hidden="true">08</div>
     <div class="wrap">
-      <span class="tag">Formação</span>
-      <div class="edu-grid">
+      <div class="sec-label">Formação</div>
+      <div class="edu-layout">
         <div>
-          <div class="section-h">Acadêmica</div>
-          <div class="edu-item">
-            <div class="edu-deg">Bacharelado em Ciências Biológicas</div>
+          <div class="edu-row">
+            <div class="edu-row-top">
+              <div class="edu-deg">Bacharelado em Ciências Biológicas</div>
+              <div class="edu-per">2021 – 2025</div>
+            </div>
             <div class="edu-inst">Universidade Estácio de Sá</div>
-            <div class="edu-per">2021 — 2025</div>
           </div>
-          <div class="edu-item">
-            <div class="edu-deg">Pós-Graduação — 3 especializações</div>
+          <div class="edu-row">
+            <div class="edu-row-top">
+              <div class="edu-deg">Pós-Graduação — 3 especializações</div>
+              <div class="edu-per">2025 – presente</div>
+            </div>
             <div class="edu-inst">UNYLEYA</div>
             <div class="edu-det">Gestão das Águas · Manejo e Conservação da Fauna · Recuperação Ambiental</div>
-            <div class="edu-per">2025 — presente</div>
           </div>
         </div>
         <div>
-          <div class="section-h">Complementar</div>
-          <div class="certs-list">
-            <div class="cert">Geoinformação na SPU – Conceitos, Fundamentos e Tecnologias<div class="cert-iss">ENAP · 2026</div></div>
-            <div class="cert">Aplicação do Power BI para Aprimoramento da Gestão<div class="cert-iss">ENAP · 2026</div></div>
-            <div class="cert">Introdução à Gestão de Projetos<div class="cert-iss">Fundação Bradesco · 2026</div></div>
-            <div class="cert">Análise de Dados no Power BI<div class="cert-iss">Fundação Bradesco · 2023</div></div>
-            <div class="cert">Noções Introdutórias de Direito Ambiental<div class="cert-iss">Estácio · 2025</div></div>
-            <div class="cert">Industrialização e Impactos Ambientais<div class="cert-iss">Estácio · 2025</div></div>
-            <div class="cert on">Excel com IA · Power BI · Automação com n8n<div class="cert-iss">Santander / DIO · em andamento</div></div>
+          <div class="certs-scroll">
+            <div class="cert-row">Geoinformação na SPU – Conceitos, Fundamentos e Tecnologias<div class="cert-iss">ENAP · 2026</div></div>
+            <div class="cert-row">Aplicação do Power BI para Aprimoramento da Gestão<div class="cert-iss">ENAP · 2026</div></div>
+            <div class="cert-row">Introdução à Gestão de Projetos<div class="cert-iss">Fundação Bradesco · 2026</div></div>
+            <div class="cert-row">Análise de Dados no Power BI<div class="cert-iss">Fundação Bradesco · 2023</div></div>
+            <div class="cert-row">Noções Introdutórias de Direito Ambiental<div class="cert-iss">Estácio · 2025</div></div>
+            <div class="cert-row">Industrialização e Impactos Ambientais<div class="cert-iss">Estácio · 2025</div></div>
+            <div class="cert-row">Excel com IA · Power BI · Automação com n8n<div class="cert-iss">Santander / DIO · em andamento</div></div>
           </div>
         </div>
       </div>
@@ -571,29 +628,30 @@
 
   <!-- 8 · CONTATO -->
   <div class="slide dg" data-lbl="Contato">
+    <div class="ghost" aria-hidden="true">09</div>
     <div class="wrap">
-      <div class="ct-grid">
+      <div class="ct-layout">
         <div>
           <h2 class="ct-h">Vamos<br><em>conversar?</em></h2>
           <p class="ct-sub">Aberta a projetos, colaborações e oportunidades nas áreas ambiental, de dados e tecnologia.</p>
-          <a href="mailto:taliaoliveir4@outlook.com" class="btn btn-white">Enviar mensagem</a>
+          <a href="mailto:taliaoliveir4@outlook.com" class="btn-line light">Enviar mensagem</a>
         </div>
-        <div class="ct-details">
-          <div>
-            <span class="cd-lbl">Email</span>
-            <a class="cd-val" href="mailto:taliaoliveir4@outlook.com">taliaoliveir4@outlook.com</a>
+        <div class="ct-list">
+          <div class="ct-item">
+            <div class="ct-lbl">Email</div>
+            <a class="ct-val" href="mailto:taliaoliveir4@outlook.com">taliaoliveir4@outlook.com</a>
           </div>
-          <div>
-            <span class="cd-lbl">Telefone</span>
-            <span class="cd-val">(71) 99117-8842</span>
+          <div class="ct-item">
+            <div class="ct-lbl">Telefone</div>
+            <span class="ct-val">(71) 99117-8842</span>
           </div>
-          <div>
-            <span class="cd-lbl">LinkedIn</span>
-            <a class="cd-val" href="https://www.linkedin.com/in/talia-oliveira" target="_blank" rel="noopener">/in/talia-oliveira</a>
+          <div class="ct-item">
+            <div class="ct-lbl">LinkedIn</div>
+            <a class="ct-val" href="https://www.linkedin.com/in/talia-oliveira" target="_blank" rel="noopener">/in/talia-oliveira</a>
           </div>
-          <div>
-            <span class="cd-lbl">Localização</span>
-            <span class="cd-val">Salvador / BA · Foz do Iguaçu / PR</span>
+          <div class="ct-item">
+            <div class="ct-lbl">Localização</div>
+            <span class="ct-val">Salvador / BA · Foz do Iguaçu / PR</span>
           </div>
         </div>
       </div>
@@ -623,43 +681,43 @@
     n = Math.max(0, Math.min(N - 1, n));
     if (n === cur) return;
     busy = true; cur = n;
-    ss.style.transform = `translateY(-${cur * 100}vh)`;
-    dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+    ss.style.transform = 'translateY(-' + (cur * 100) + 'vh)';
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === cur); });
     bcnt.textContent = pad(cur + 1) + ' / ' + pad(N);
     blbl.textContent = slides[cur].dataset.lbl || '';
     aprev.classList.toggle('off', cur === 0);
     anext.classList.toggle('off', cur === N - 1);
-    const dark = ['dp','dt','dg'].some(c => slides[cur].classList.contains(c));
-    topbar.style.color = dark ? '#fff' : '';
-    btmbar.style.color = dark ? '#fff' : '';
-    dots.forEach(d => {
+    var dark = slides[cur].classList.contains('dk') || slides[cur].classList.contains('dg');
+    topbar.style.color = dark ? '#F5F3EE' : '';
+    btmbar.style.color = dark ? '#F5F3EE' : '';
+    dots.forEach(function (d) {
       d.style.background = dark
-        ? (d.classList.contains('active') ? '#8ECBB0' : 'rgba(255,255,255,.22)')
+        ? (d.classList.contains('active') ? '#6DBFA0' : 'rgba(255,255,255,.2)')
         : '';
     });
-    setTimeout(() => { busy = false; }, 950);
+    setTimeout(function () { busy = false; }, 900);
   }
 
-  let lastW = 0;
-  window.addEventListener('wheel', e => {
-    const t = Date.now();
+  var lastW = 0;
+  window.addEventListener('wheel', function (e) {
+    var t = Date.now();
     if (t - lastW < 900 || Math.abs(e.deltaY) < 15) return;
     lastW = t; go(cur + (e.deltaY > 0 ? 1 : -1));
   }, { passive: true });
 
-  window.addEventListener('keydown', e => {
-    if (['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)) { e.preventDefault(); go(cur + 1); }
-    if (['ArrowUp','ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+  window.addEventListener('keydown', function (e) {
+    if (['ArrowDown','ArrowRight','PageDown',' '].indexOf(e.key) >= 0) { e.preventDefault(); go(cur + 1); }
+    if (['ArrowUp','ArrowLeft','PageUp'].indexOf(e.key) >= 0) { e.preventDefault(); go(cur - 1); }
   });
 
-  dots.forEach(d => d.addEventListener('click', () => go(+d.dataset.i)));
-  aprev.addEventListener('click', () => go(cur - 1));
-  anext.addEventListener('click', () => go(cur + 1));
+  dots.forEach(function (d) { d.addEventListener('click', function () { go(+d.dataset.i); }); });
+  aprev.addEventListener('click', function () { go(cur - 1); });
+  anext.addEventListener('click', function () { go(cur + 1); });
 
-  let ty0 = 0;
-  window.addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; }, { passive: true });
-  window.addEventListener('touchend',   e => {
-    const dy = ty0 - e.changedTouches[0].clientY;
+  var ty0 = 0;
+  window.addEventListener('touchstart', function (e) { ty0 = e.touches[0].clientY; }, { passive: true });
+  window.addEventListener('touchend', function (e) {
+    var dy = ty0 - e.changedTouches[0].clientY;
     if (Math.abs(dy) > 55) go(cur + (dy > 0 ? 1 : -1));
   });
 })();
