@@ -161,21 +161,30 @@
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: clamp(2rem, 4.5vw, 3.5rem);
       font-weight: 400; font-style: italic; line-height: 1.25;
-      color: rgba(255,255,255,.45); margin-bottom: 3rem;
+      color: rgba(255,255,255,.45); margin-bottom: 2.5rem;
       letter-spacing: -.01em;
     }
     .impact-h strong { color: #F5F3EE; font-style: normal; font-weight: 700; }
-    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid rgba(255,255,255,.12); }
-    .st { padding: 2.5rem 0; border-right: 1px solid rgba(255,255,255,.1); padding-right: 2rem; padding-left: 2rem; }
-    .st:first-child { padding-left: 0; }
-    .st:last-child { border-right: none; }
+
+    /* stats segmentados */
+    .stats-cats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255,255,255,.12); }
+    .sc { padding: 0 1.75rem; border-right: 1px solid rgba(255,255,255,.1); }
+    .sc:first-child { padding-left: 0; }
+    .sc:last-child { border-right: none; padding-right: 0; }
+    .sc-label {
+      font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,.28); padding: 1.25rem 0 .9rem;
+      border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 1.25rem;
+    }
+    .st { margin-bottom: 1.25rem; }
+    .st:last-child { margin-bottom: 0; }
     .st-n {
-      font-size: clamp(3.5rem, 9vw, 6.5rem); font-weight: 700;
+      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700;
       letter-spacing: -.04em; line-height: .9;
-      color: var(--green); margin-bottom: .6rem;
+      color: var(--green); margin-bottom: .4rem;
       font-family: Arial, Helvetica, sans-serif;
     }
-    .st-l { font-size: 12px; color: rgba(255,255,255,.5); line-height: 1.55; }
+    .st-l { font-size: 11px; color: rgba(255,255,255,.45); line-height: 1.55; }
 
     /* ────────────────────────────────────────
        SLIDE 3 — EXPERIÊNCIA
@@ -394,23 +403,44 @@
     <div class="ghost" aria-hidden="true">03</div>
     <div class="wrap">
       <p class="impact-h">Trajetória<br><strong>em números.</strong></p>
-      <div class="stats-row">
-        <div class="st">
-          <div class="st-n">3+</div>
-          <div class="st-l">anos em análise ambiental</div>
+      <div class="stats-cats">
+
+        <div class="sc">
+          <div class="sc-label">Profissional</div>
+          <div class="st">
+            <div class="st-n">3+</div>
+            <div class="st-l">anos em análise ambiental</div>
+          </div>
+          <div class="st">
+            <div class="st-n">6</div>
+            <div class="st-l">etapas de campo FPI / BA</div>
+          </div>
         </div>
-        <div class="st">
-          <div class="st-n">2ª</div>
-          <div class="st-l">lugar NASA Space Apps — Equipe Hypatia</div>
+
+        <div class="sc">
+          <div class="sc-label">Voluntariado</div>
+          <div class="st">
+            <div class="st-n">15</div>
+            <div class="st-l">anos com a FIRST® LEGO® League</div>
+          </div>
+          <div class="st">
+            <div class="st-n">OBR</div>
+            <div class="st-l">juíza nacional — Robótica 2023, Salvador</div>
+          </div>
         </div>
-        <div class="st">
-          <div class="st-n">15</div>
-          <div class="st-l">anos com a FIRST® LEGO® League</div>
+
+        <div class="sc">
+          <div class="sc-label">Estudantil</div>
+          <div class="st">
+            <div class="st-n">2ª</div>
+            <div class="st-l">NASA Space Apps — Equipe Hypatia, Salvador</div>
+          </div>
+          <div class="st">
+            <div class="st-n">HCK</div>
+            <div class="st-l">Hackathon+ Porto Seguro, 2019</div>
+          </div>
         </div>
-        <div class="st">
-          <div class="st-n">6</div>
-          <div class="st-l">etapas de campo FPI / BA</div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -516,12 +546,12 @@
     <div class="wrap">
       <div class="sankofa-layout">
         <div>
-          <div class="s-eyebrow">Iniciativa Social · Membro Fundadora</div>
+          <div class="s-eyebrow">Iniciativa Social · Membro Fundadora · Pernambués, Salvador / BA</div>
           <h2 class="s-title">Coletivo<br><em>Sankofa Egbé</em></h2>
-          <p class="s-desc">Levamos robótica, ciência, exatas e artes para crianças de terreiro em Pernambués, Salvador. O nome une o conceito Akan do Sankofa — olhar para as raízes para avançar — e Egbé, que em Yorubá significa grupo, coletivo.</p>
+          <p class="s-desc">Mais que aulas de robótica — levamos ciência, tecnologia, engenharia, artes e matemática (STEAM) para crianças de terreiro em Pernambués, Salvador. O nome une o conceito Akan do Sankofa — olhar para as raízes para avançar — e Egbé, que em Yorubá significa grupo, coletivo.</p>
           <div class="s-list">
-            <div class="s-item">Robótica e programação</div>
-            <div class="s-item">Ciências e exatas</div>
+            <div class="s-item">Ciência e Tecnologia</div>
+            <div class="s-item">Engenharia e Matemática</div>
             <div class="s-item">Artes e criatividade</div>
             <div class="s-item">Crianças de terreiro</div>
             <div class="s-item">Pernambués, Salvador / BA</div>
@@ -611,11 +641,24 @@
           </div>
           <div class="edu-row">
             <div class="edu-row-top">
-              <div class="edu-deg">Pós-Graduação — 3 especializações</div>
+              <div class="edu-deg">Gestão das Águas</div>
               <div class="edu-per">2025 – presente</div>
             </div>
-            <div class="edu-inst">UNYLEYA</div>
-            <div class="edu-det">Gestão das Águas · Manejo e Conservação da Fauna · Recuperação Ambiental</div>
+            <div class="edu-inst">UNYLEYA · Pós-Graduação</div>
+          </div>
+          <div class="edu-row">
+            <div class="edu-row-top">
+              <div class="edu-deg">Manejo e Conservação da Fauna</div>
+              <div class="edu-per">2025 – presente</div>
+            </div>
+            <div class="edu-inst">UNYLEYA · Pós-Graduação</div>
+          </div>
+          <div class="edu-row">
+            <div class="edu-row-top">
+              <div class="edu-deg">Recuperação Ambiental</div>
+              <div class="edu-per">2025 – presente</div>
+            </div>
+            <div class="edu-inst">UNYLEYA · Pós-Graduação</div>
           </div>
         </div>
         <div>
