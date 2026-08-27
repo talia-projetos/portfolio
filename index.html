@@ -263,8 +263,9 @@
     .proj-tags { font-size: 11px; color: var(--muted); }
     .proj-tags span + span::before { content: ' · '; }
 
-    .lead-row { padding: .9rem 0; }
-    .lead-row + .lead-row { border-top: 1px solid var(--rule); }
+    .lead-row { padding: 1rem 1.25rem; border: 1px solid var(--rule); }
+    .lead-row + .lead-row { margin-top: .5rem; }
+    .proj-block + .lead-row { margin-top: .5rem; }
     .lead-top { display: flex; align-items: baseline; gap: .65rem; margin-bottom: .25rem; }
     .lead-tag { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green); flex-shrink: 0; }
     .lead-h { font-size: 13px; font-weight: 600; }
