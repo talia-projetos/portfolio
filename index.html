@@ -142,11 +142,11 @@
     /* SLIDE 2 — IMPACTO */
     .nums-layout {
       display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 4.5rem;
-      align-items: center;
+      grid-template-columns: 210px 1fr;
+      gap: 4rem;
+      align-items: start;
     }
-    .nums-side { display: flex; flex-direction: column; gap: 1.5rem; }
+    .nums-side { display: flex; flex-direction: column; gap: 1rem; }
     .nums-eyebrow {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: clamp(2rem, 4vw, 3rem); font-style: italic; font-weight: 400;
@@ -274,17 +274,15 @@
 
     /* SLIDE 7 — FORMAÇÃO */
     .edu-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .edu-row { padding: .95rem 0; border-bottom: 1px solid var(--rule); }
+    .edu-row { padding: .85rem 0; border-bottom: 1px solid var(--rule); }
     .edu-row:first-child { border-top: 1px solid var(--rule); }
-    .edu-row-top { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: baseline; margin-bottom: .2rem; }
-    .edu-deg { font-size: 13px; font-weight: 600; }
-    .edu-per { font-size: 10px; color: var(--muted); white-space: nowrap; }
-    .edu-inst { font-size: 11px; color: var(--green); font-weight: 600; margin-bottom: .15rem; }
-    .edu-det { font-size: 11px; color: var(--muted); line-height: 1.5; }
-    .cert-row { padding: .65rem 0; border-bottom: 1px solid var(--rule); font-size: 12px; font-weight: 500; }
+    .edu-deg { font-size: 13px; font-weight: 600; line-height: 1.4; margin-bottom: .2rem; }
+    .edu-per { font-size: 10px; color: var(--muted); display: inline-block; margin-bottom: .15rem; }
+    .edu-inst { font-size: 11px; color: var(--green); font-weight: 600; }
+    .edu-det { font-size: 11px; color: var(--muted); line-height: 1.5; margin-top: .1rem; }
+    .cert-row { padding: .6rem 0; border-bottom: 1px solid var(--rule); font-size: 12px; font-weight: 500; line-height: 1.4; }
     .cert-row:first-child { border-top: 1px solid var(--rule); }
     .cert-iss { font-size: 10px; color: var(--muted); font-weight: 400; margin-top: .1rem; }
-    .certs-scroll { max-height: 360px; overflow-y: auto; }
 
     /* SLIDE 8 — CONTATO */
     .ct-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
@@ -411,6 +409,7 @@
           <div class="nums-eyebrow">Trajetória</div>
           <div class="nums-title">em<br>números</div>
           <div class="nums-rule"></div>
+          <svg id="br-map" viewBox="0 0 220 264" aria-label="Mapa do Brasil" style="width:100%;max-width:200px;height:auto;margin-top:1rem;display:block"></svg>
         </div>
 
         <div class="nums-grid">
@@ -698,36 +697,28 @@
       <div class="edu-layout">
         <div>
           <div class="edu-row">
-            <div class="edu-row-top">
-              <div class="edu-deg">Bacharelado em Ciências Biológicas</div>
-              <div class="edu-per">2021 — 2025</div>
-            </div>
+            <div class="edu-deg">Bacharelado em Ciências Biológicas</div>
+            <div class="edu-per">2021 — 2025</div>
             <div class="edu-inst">Universidade Estácio de Sá</div>
           </div>
           <div class="edu-row">
-            <div class="edu-row-top">
-              <div class="edu-deg">Gestão das Águas e Sustentabilidade dos Recursos Hídricos no Brasil</div>
-              <div class="edu-per">2025 — presente</div>
-            </div>
+            <div class="edu-deg">Gestão das Águas e Sustentabilidade dos Recursos Hídricos no Brasil</div>
+            <div class="edu-per">2025 — presente</div>
             <div class="edu-inst">UNYLEYA · Pós-Graduação</div>
           </div>
           <div class="edu-row">
-            <div class="edu-row-top">
-              <div class="edu-deg">Manejo e Conservação da Fauna Silvestre e Exótica</div>
-              <div class="edu-per">2025 — presente</div>
-            </div>
+            <div class="edu-deg">Manejo e Conservação da Fauna Silvestre e Exótica</div>
+            <div class="edu-per">2025 — presente</div>
             <div class="edu-inst">UNYLEYA · Pós-Graduação</div>
           </div>
           <div class="edu-row">
-            <div class="edu-row-top">
-              <div class="edu-deg">Recuperação Ambiental de Áreas Degradadas e Contaminadas</div>
-              <div class="edu-per">2025 — presente</div>
-            </div>
+            <div class="edu-deg">Recuperação Ambiental de Áreas Degradadas e Contaminadas</div>
+            <div class="edu-per">2025 — presente</div>
             <div class="edu-inst">UNYLEYA · Pós-Graduação</div>
           </div>
         </div>
         <div>
-          <div class="certs-scroll">
+          <div>
             <div class="cert-row">Aplicação do Power BI para Aprimoramento da Gestão<div class="cert-iss">ENAP · jan 2026</div></div>
             <div class="cert-row">Geoinformação na SPU: conceitos, fundamentos e tecnologias<div class="cert-iss">ENAP · jan 2026</div></div>
             <div class="cert-row">Introdução à Gestão de Projetos<div class="cert-iss">Fundação Bradesco · jan 2026</div></div>
@@ -764,6 +755,75 @@
   </div>
 
 </div>
+
+<script>
+// ── Mapa do Brasil ─────────────────────────────────────────────
+(function () {
+  var svg = document.getElementById('br-map');
+  if (!svg) return;
+  var W = 220, H = 264, NS = 'http://www.w3.org/2000/svg';
+  function gx(lon) { return ((lon + 74) / 46 * W); }
+  function gy(lat) { return ((5.5  - lat) / 39 * H); }
+  function ppts(a) { return a.map(function(p){ return gx(p[0]).toFixed(1)+','+gy(p[1]).toFixed(1); }).join(' '); }
+  function el(tag, attr, txt) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attr) e.setAttribute(k, attr[k]);
+    if (txt !== undefined) e.textContent = txt;
+    svg.appendChild(e); return e;
+  }
+  function state(c, fill, hi) {
+    el('polygon', {points:ppts(c), fill:fill,
+      stroke: hi ? 'rgba(0,0,0,.35)' : 'rgba(255,255,255,.14)',
+      'stroke-width': hi ? '0.9' : '0.5'});
+  }
+  var D = 'rgba(255,255,255,.07)';
+  // muted background states
+  state([[-60,5.2],[-62.5,4.5],[-64,2.5],[-64,1.5],[-63,0.5],[-59.5,1.5],[-59,2.5],[-59.5,4]],D);
+  state([[-51.5,4.3],[-50.5,1.5],[-52,0.5],[-54.5,0.5],[-54.5,2.8],[-52.5,3.8]],D);
+  state([[-73,2],[-70,4],[-66,4],[-62.5,4.5],[-60,5.2],[-59.5,4],[-59,2.5],[-59.5,1.5],[-60.5,-2],[-57.5,-8.5],[-61,-8],[-63,-9],[-65,-10],[-68,-11.5],[-73.8,-7]],D);
+  state([[-54.5,2.8],[-54.5,0.5],[-52,0.5],[-50.5,1.5],[-51.5,4.3],[-59.5,4],[-59.5,1.5],[-60.5,-2],[-57.5,-8.5],[-54.5,-8.5],[-51,-8],[-48,-5],[-48,1.5],[-50,2]],D);
+  state([[-74,-8],[-73.8,-7],[-68,-11.5],[-73,-11]],D);
+  state([[-65,-10],[-68,-11.5],[-73,-11],[-65.5,-13.5],[-63,-13],[-60,-12],[-60,-8],[-63,-9]],D);
+  state([[-48,-5],[-46,-5.5],[-47,-13],[-50,-13],[-50,-5]],D);
+  state([[-41,-2.5],[-38,-4],[-39,-7],[-40.5,-9.5],[-41,-10],[-44,-10],[-44,-1.5]],D);
+  state([[-37,-3],[-35,-4],[-35,-5.5],[-37,-7],[-39.5,-7],[-41,-6],[-41,-3]],D);
+  state([[-35,-4],[-34.8,-6.5],[-37,-7],[-38,-5]],D);
+  state([[-35,-9],[-37,-11],[-36,-11],[-35,-9.5]],D);
+  state([[-36,-11],[-38,-11],[-38,-12.5],[-37,-12]],D);
+  state([[-60,-8],[-60,-18],[-54,-18],[-51,-13],[-48,-5],[-51,-8],[-54.5,-8.5],[-57.5,-8.5]],D);
+  state([[-54,-18],[-60,-18],[-58,-24],[-48,-24],[-48,-18],[-51,-18]],D);
+  state([[-48,-12],[-46,-12],[-46,-18],[-48,-24],[-51,-18],[-51,-13]],D);
+  state([[-44,-14],[-46,-15],[-44.5,-17],[-41,-21],[-43,-23],[-44,-22],[-51,-18],[-46,-12]],D);
+  state([[-41,-21],[-44,-22],[-43,-23.5],[-41.5,-22]],D);
+  state([[-45,-24],[-54,-24],[-54,-27],[-48.5,-26.5]],D);
+  state([[-48.5,-26.5],[-54,-27],[-54,-29],[-49,-29]],D);
+  state([[-49,-29],[-54,-29],[-58,-34],[-51,-34],[-49,-30]],D);
+  // highlighted FLL states
+  state([[-44,-1.5],[-41,-2.5],[-41,-10],[-47.5,-9.5],[-47,-4],[-45,-1.5]],'#4ECDC4',true);
+  state([[-34.8,-6.5],[-35,-8.5],[-37.5,-7.5],[-37,-7]],'#E056A0',true);
+  state([[-35,-8.5],[-35,-9],[-38,-11],[-39,-9.5],[-40.5,-9],[-39.5,-7],[-37,-7],[-37.5,-7.5]],'#F2994A',true);
+  state([[-46,-9],[-44,-9],[-41,-9],[-40,-10],[-38,-11],[-37,-11],[-36,-11],[-38,-14],[-39.5,-18],[-41,-21],[-44.5,-17],[-46,-15]],'#27AE60',true);
+  state([[-48.3,-15.5],[-47.3,-15.5],[-47.3,-16.1],[-48.3,-16.1]],'#F2C94C',true);
+  state([[-40,-18],[-41,-21],[-41.5,-22],[-39.5,-21],[-39,-18]],'#9B59B6',true);
+  state([[-44,-22],[-54,-24],[-50,-26],[-45,-24],[-43,-23.5]],'#2F80ED',true);
+  // FPI cities in Bahia
+  [[-40.5,-9.4,'Juazeiro'],[-40.5,-11.2,'Jacobina'],[-43.2,-12.2,'Ibotirama'],
+   [-43.4,-13.3,'B.J. Lapa'],[-44.2,-13.4,'S.M. Vitória'],[-42.8,-14.2,'Guanambi']
+  ].forEach(function(c){
+    var cx=gx(c[0]).toFixed(1), cy=gy(c[1]).toFixed(1);
+    el('circle',{cx:cx,cy:cy,r:'3',fill:'#fff',stroke:'#27AE60','stroke-width':'1.2'});
+    el('text',{x:(+cx+4).toFixed(1),y:(+cy+2.5).toFixed(1),fill:'rgba(255,255,255,.6)','font-size':'5.8','font-family':'Inter,sans-serif','font-weight':'500'},c[2]);
+  });
+  // legend
+  [['#27AE60','FPI — Bahia'],['#4ECDC4','Maranhão'],['#F2994A','Pernambuco'],
+   ['#E056A0','Paraíba'],['#F2C94C','Brasília'],['#9B59B6','Espírito Santo'],['#2F80ED','São Paulo']
+  ].forEach(function(l,i){
+    var ly=H-7*10+i*10;
+    el('rect',{x:0,y:ly,width:7,height:7,fill:l[0],rx:'1'});
+    el('text',{x:10,y:ly+6,fill:'rgba(255,255,255,.42)','font-size':'6','font-family':'Inter,sans-serif'},l[1]);
+  });
+})();
+</script>
 
 <script>
 (function () {
