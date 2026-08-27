@@ -142,9 +142,9 @@
     /* SLIDE 2 — IMPACTO */
     .nums-layout {
       display: grid;
-      grid-template-columns: 210px 1fr;
+      grid-template-columns: 190px 1fr;
       gap: 4rem;
-      align-items: start;
+      align-items: center;
     }
     .nums-side { display: flex; flex-direction: column; gap: 1rem; }
     .nums-eyebrow {
@@ -256,7 +256,7 @@
     .s-bar:nth-child(6) { width: 62%; background: rgba(109,191,160,.25); }
 
     /* SLIDE 6 — PROJETOS + LIDERANÇA */
-    .pl-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .pl-layout { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 2.5rem; }
     .proj-block { padding: 1.75rem; border: 1px solid var(--rule); }
     .proj-h { font-size: 15px; font-weight: 600; margin-bottom: .5rem; }
     .proj-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
@@ -307,7 +307,7 @@
       .wrap { padding: 70px 1.5rem; }
       #dots, #btmbar { display: none; }
       .hero-layout, .sobre-grid, .tools-layout, .sankofa-layout,
-      .pl-layout, .edu-layout, .ct-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .pl-layout, .edu-layout, .ct-layout { grid-template-columns: 1fr; gap: 1.5rem; }
       .stats-cats { grid-template-columns: 1fr; }
       .sc { padding: 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
       .hero-accent { display: none; }
@@ -409,7 +409,6 @@
           <div class="nums-eyebrow">Trajetória</div>
           <div class="nums-title">em<br>números</div>
           <div class="nums-rule"></div>
-          <svg id="br-map" viewBox="0 0 220 264" aria-label="Mapa do Brasil" style="width:100%;max-width:200px;height:auto;margin-top:1rem;display:block"></svg>
         </div>
 
         <div class="nums-grid">
@@ -611,6 +610,7 @@
       <div class="sec-label">Projetos &amp; Liderança</div>
       <div class="pl-layout">
 
+        <!-- col 1: projeto + tech -->
         <div>
           <div class="proj-block">
             <div class="proj-h">Hub de Torneio de Robótica</div>
@@ -619,8 +619,23 @@
               <span>JavaScript</span><span>Apps Script</span><span>Google Sheets</span><span>FLL</span>
             </div>
           </div>
+          <div class="lead-row">
+            <div class="lead-top">
+              <span class="lead-tag">WEB</span>
+              <span class="lead-h">Desenvolvimento de Sites</span>
+            </div>
+            <div class="lead-p">Portfólios, sistemas de torneio FLL com ranking ao vivo, painéis de dados e interfaces para Google Sheets via Apps Script.</div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-top">
+              <span class="lead-tag">AUT</span>
+              <span class="lead-h">Desenvolvimento de Automações</span>
+            </div>
+            <div class="lead-p">Automações com Google Apps Script e Python: formulários integrados a planilhas, relatórios automáticos e fluxos para análise ambiental.</div>
+          </div>
         </div>
 
+        <!-- col 2: FLL + OBR -->
         <div>
           <div class="lead-row">
             <div class="lead-top">
@@ -649,6 +664,10 @@
             <div class="lead-meta">Voluntária · nov 2019 · Parque da Cidade</div>
             <div class="lead-p">Atuação na Virada Educação com ações alinhadas aos ODS, engajando a comunidade em educação ambiental, sustentabilidade e transformação social.</div>
           </div>
+        </div>
+
+        <!-- col 3: competições -->
+        <div>
           <div class="lead-row">
             <div class="lead-top">
               <span class="lead-tag">NASA</span>
@@ -668,20 +687,6 @@
             </div>
             <div class="lead-meta">set 2019</div>
             <div class="lead-p">Aplicativo gamificado de turismo: visitantes acumulam pontos ao explorar e avaliar pontos turísticos, com desconto em estabelecimentos parceiros locais.</div>
-          </div>
-          <div class="lead-row">
-            <div class="lead-top">
-              <span class="lead-tag">WEB</span>
-              <span class="lead-h">Desenvolvimento de Sites</span>
-            </div>
-            <div class="lead-p">Criação de sites e aplicações web: portfólios, sistemas de gerenciamento de torneio FLL com ranking ao vivo, painéis de dados e interfaces para Google Sheets via Apps Script.</div>
-          </div>
-          <div class="lead-row">
-            <div class="lead-top">
-              <span class="lead-tag">AUT</span>
-              <span class="lead-h">Desenvolvimento de Automações</span>
-            </div>
-            <div class="lead-p">Automações com Google Apps Script e Python: formulários integrados a planilhas, relatórios automáticos, tratamento de dados e fluxos de trabalho para análise ambiental.</div>
           </div>
         </div>
 
@@ -756,109 +761,6 @@
 
 </div>
 
-<script>
-// ── Mapa do Brasil ─────────────────────────────────────────────
-(function () {
-  var svg = document.getElementById('br-map');
-  if (!svg) return;
-  var W = 220, H = 264, NS = 'http://www.w3.org/2000/svg';
-  function gx(lon) { return (lon + 74) / 46 * W; }
-  function gy(lat) { return (5.5 - lat) / 39 * H; }
-  function ppts(a) { return a.map(function(p){ return gx(p[0]).toFixed(1)+','+gy(p[1]).toFixed(1); }).join(' '); }
-  function el(tag, attr, txt) {
-    var e = document.createElementNS(NS, tag);
-    for (var k in attr) e.setAttribute(k, attr[k]);
-    if (txt !== undefined) e.textContent = txt;
-    svg.appendChild(e); return e;
-  }
-  function st(c, fill, hi) {
-    el('polygon', {points:ppts(c), fill:fill,
-      stroke: hi ? 'rgba(0,0,0,.3)' : 'rgba(255,255,255,.13)',
-      'stroke-width': hi ? '0.8' : '0.4'});
-  }
-  var D = 'rgba(255,255,255,.08)';
-
-  // RR
-  st([[-64.8,1.5],[-60,1.5],[-60,3],[-61,5.2],[-63.5,5.2],[-64.8,3]], D);
-  // AP
-  st([[-54,1.5],[-50.5,1.5],[-50.5,2.5],[-51.5,4.3],[-53,2.5]], D);
-  // AM (western giant)
-  st([[-73.5,2],[-73.5,-10],[-67.5,-11.5],[-65,-9.5],[-63,-8.5],[-60,-7.5],
-      [-60,-1.5],[-60,1.5],[-64.8,1.5],[-64.8,3],[-63.5,5.2],[-67.5,2]], D);
-  // PA (eastern giant)
-  st([[-60,1.5],[-60,-1.5],[-60,-7.5],[-55.5,-8.5],[-51.5,-8.5],
-      [-48.5,-5],[-47.5,-2],[-47.5,0],[-50.5,1.5],[-53,2.5],[-51.5,4.3],[-50.5,2.5],[-54,1.5]], D);
-  // AC
-  st([[-73.5,-9],[-73.5,-11],[-67.5,-11.5],[-65.5,-9.5],[-67,-7.5],[-70,-7]], D);
-  // RO
-  st([[-65.5,-9.5],[-60,-7.5],[-60,-13.5],[-63.5,-13.5],[-65,-11.5],[-66.5,-11]], D);
-  // TO
-  st([[-50.5,-5],[-47.5,-5],[-45.5,-7.5],[-45.5,-13.5],[-48.5,-13.5],[-50.5,-11]], D);
-  // PI
-  st([[-45.5,-3],[-41.8,-2.5],[-40.5,-4],[-40.5,-7.5],[-41,-11],[-44,-10.5],[-45.5,-8],[-45.5,-5]], D);
-  // CE
-  st([[-41.5,-3],[-38.5,-3.7],[-37.2,-4.5],[-37.5,-7.5],[-39.5,-7.5],[-41.5,-7]], D);
-  // RN
-  st([[-38.5,-4.8],[-35,-4.8],[-34.9,-5.5],[-35,-6.5],[-37,-6.8],[-38.5,-6]], D);
-  // AL
-  st([[-38.5,-9],[-35.2,-9],[-35,-10],[-36.5,-10.5],[-38,-10.5],[-38.5,-9.5]], D);
-  // SE
-  st([[-37.9,-10],[-36.4,-10],[-36.5,-11.5],[-37.5,-11.5],[-37.9,-10.5]], D);
-  // MT
-  st([[-61,-8],[-51.5,-8.5],[-50.5,-13.5],[-50.5,-18],[-61,-18]], D);
-  // GO
-  st([[-53,-12.5],[-46.5,-12.5],[-46,-15.5],[-46,-19.5],[-53,-19]], D);
-  // MS
-  st([[-58,-17],[-51,-17],[-50.5,-20],[-51.5,-24],[-58,-24],[-58,-20]], D);
-  // MG
-  st([[-51,-14],[-46.5,-14],[-46,-19.5],[-44,-19],[-40.5,-19.5],[-40,-22],[-43,-22.9],[-45,-22.5],[-51,-22]], D);
-  // RJ
-  st([[-44.5,-21],[-40.9,-21],[-40.9,-22.5],[-43,-23.2],[-44.5,-22.5]], D);
-  // PR
-  st([[-54.5,-22.5],[-48,-22.5],[-48,-24],[-53,-24],[-54.5,-25]], D);
-  // SC
-  st([[-54,-26],[-48.3,-26],[-48.3,-28],[-53.8,-29]], D);
-  // RS
-  st([[-57.7,-28],[-49.7,-28],[-49.7,-30],[-53,-30],[-53,-33.7],[-57.5,-33.7],[-57.7,-30]], D);
-
-  // === FLL — estados destacados ===
-  // MA — Maranhão
-  st([[-48.7,-2.5],[-44.5,-1],[-41.8,-2.5],[-42,-4.5],[-44,-8.5],[-46,-10.5],[-48.7,-8]], '#4ECDC4', true);
-  // PB — Paraíba
-  st([[-38.8,-6.5],[-35,-6.5],[-34.8,-7.5],[-35.5,-8],[-38.5,-8],[-38.8,-7]], '#E056A0', true);
-  // PE — Pernambuco (faixa alongada L-O)
-  st([[-41.5,-7.5],[-35,-7.5],[-34.9,-8.1],[-35.5,-9.3],[-39,-9.5],[-41,-9],[-41.5,-8]], '#F2994A', true);
-  // BA — Bahia
-  st([[-46.5,-9],[-41,-8.5],[-37.5,-10],[-36.5,-11.5],[-36.5,-13],
-      [-37.5,-15.5],[-38.5,-16.5],[-40,-18.5],[-44,-18],[-46,-15.5],[-46.5,-12]], '#27AE60', true);
-  // DF — Brasília (enclave)
-  st([[-48.3,-15.5],[-47.3,-15.5],[-47.3,-16.1],[-48.3,-16.1]], '#F2C94C', true);
-  // ES — Espírito Santo
-  st([[-41,-18],[-39.6,-18],[-39.6,-21.3],[-41,-21]], '#9B59B6', true);
-  // SP — São Paulo
-  st([[-53,-20],[-45,-20],[-44.5,-22],[-45,-24.5],[-48.5,-25.5],[-53,-24]], '#2F80ED', true);
-
-  // Cidades FPI na Bahia
-  [[-40.5,-9.4,'Juazeiro'],[-40.5,-11.2,'Jacobina'],[-43.2,-12.2,'Ibotirama'],
-   [-43.4,-13.3,'B.J. Lapa'],[-44.2,-13.4,'S.M. Vitória'],[-42.8,-14.2,'Guanambi']
-  ].forEach(function(c){
-    var cx=gx(c[0]).toFixed(1), cy=gy(c[1]).toFixed(1);
-    el('circle',{cx:cx,cy:cy,r:'2.5',fill:'#fff',stroke:'#27AE60','stroke-width':'1.2'});
-    el('text',{x:(+cx+3.5).toFixed(1),y:(+cy+2.5).toFixed(1),fill:'rgba(255,255,255,.6)',
-      'font-size':'5.5','font-family':'Inter,sans-serif','font-weight':'500'},c[2]);
-  });
-
-  // Legenda
-  [['#27AE60','FPI — Bahia'],['#4ECDC4','Maranhão'],['#F2994A','Pernambuco'],
-   ['#E056A0','Paraíba'],['#F2C94C','Brasília'],['#9B59B6','Espírito Santo'],['#2F80ED','São Paulo']
-  ].forEach(function(l,i){
-    var ly = H - 72 + i*10;
-    el('rect',{x:0,y:ly,width:7,height:7,fill:l[0],rx:'1'});
-    el('text',{x:10,y:ly+6,fill:'rgba(255,255,255,.42)',
-      'font-size':'6','font-family':'Inter,sans-serif'},l[1]);
-  });
-})();
-</script>
 
 <script>
 (function () {
