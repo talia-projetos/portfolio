@@ -4,29 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Talia Oliveira</title>
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:     #F5F3EE;
-      --ink:    #0C0C0C;
-      --green:  #2E6B4A;
-      --rule:   #C8C4BA;
-      --muted:  #666;
+      --bg:    #F5F3EE;
+      --ink:   #0C0C0C;
+      --green: #2E6B4A;
+      --rule:  #C8C4BA;
+      --muted: #666;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; overflow: hidden; }
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.65;
       color: var(--ink);
       background: var(--bg);
     }
 
-    /* ── SLIDESHOW ── */
+    /* SLIDESHOW */
     #ss {
       position: fixed; top: 0; left: 0; width: 100%;
       transition: transform .85s cubic-bezier(.77,0,.175,1);
@@ -37,29 +38,29 @@
       display: flex; flex-direction: column; justify-content: center;
       background: var(--bg); position: relative; overflow: hidden;
     }
-    .slide.w  { background: #FFFFFF; }
+    .slide.w  { background: #fff; }
     .slide.dk { background: var(--ink); color: #F5F3EE; }
     .slide.dg { background: #1A3328; color: #F5F3EE; }
 
     .wrap { max-width: 960px; margin: 0 auto; padding: 0 3rem; width: 100%; }
 
-    /* ── GHOST SLIDE NUMBER ── */
+    /* GHOST */
     .ghost {
       position: absolute; bottom: -0.12em; right: 2.5rem;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 36vh; font-weight: 700; line-height: 1;
-      color: rgba(0,0,0,.035); pointer-events: none; user-select: none;
+      color: rgba(0,0,0,.03); pointer-events: none; user-select: none;
     }
     .slide.dk .ghost, .slide.dg .ghost { color: rgba(255,255,255,.04); }
 
-    /* ── CHROME ── */
+    /* CHROME */
     #topbar {
       position: fixed; top: 0; left: 0; right: 0;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 3rem; height: 52px; z-index: 200; transition: color .4s;
     }
-    .tb-name { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
-    .tb-link { font-size: 11px; text-decoration: none; color: inherit; opacity: .45; transition: opacity .2s; letter-spacing: .04em; }
+    .tb-name { font-size: 12px; font-weight: 600; letter-spacing: .05em; }
+    .tb-link { font-size: 11px; text-decoration: none; color: inherit; opacity: .4; transition: opacity .2s; }
     .tb-link:hover { opacity: 1; }
 
     #dots {
@@ -74,54 +75,43 @@
       position: fixed; bottom: 0; left: 0; right: 0;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 3rem; height: 46px; z-index: 200;
-      font-size: 11px; letter-spacing: .04em; transition: color .4s;
+      font-size: 11px; transition: color .4s;
     }
     .btm-left { display: flex; align-items: center; gap: 1.25rem; }
-    .btm-num { opacity: .35; }
-    .btm-lbl { opacity: .25; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: 9px; }
+    .btm-num { opacity: .3; }
+    .btm-lbl { opacity: .22; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; font-size: 9px; }
     .arrows { display: flex; gap: .5rem; }
     .arr { width: 30px; height: 30px; border: 1px solid currentColor; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: .2; transition: opacity .2s; user-select: none; font-size: 11px; }
     .arr:hover { opacity: .6; }
     .arr.off { opacity: .06; pointer-events: none; }
 
-    /* ── SHARED ── */
+    /* SHARED */
     .sec-label {
-      font-size: 10px; font-weight: 700; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--green);
-      margin-bottom: 1.75rem;
+      font-size: 10px; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 1.75rem;
     }
     .dk .sec-label, .dg .sec-label { color: rgba(255,255,255,.4); }
 
-    .rule { border: none; border-top: 1px solid var(--rule); }
-    .dk .rule, .dg .rule { border-color: rgba(255,255,255,.12); }
-
-    .link-out { color: var(--green); text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+    .link-out {
+      color: var(--green); text-decoration: none;
+      font-size: 11px; font-weight: 600; letter-spacing: .02em;
+    }
     .link-out:hover { text-decoration: underline; }
 
     a.btn-line {
       display: inline-block;
-      font-size: 12px; font-weight: 700; letter-spacing: .06em;
+      font-size: 12px; font-weight: 600; letter-spacing: .05em;
       text-transform: uppercase; text-decoration: none;
       color: var(--ink); border-bottom: 2px solid var(--green);
-      padding-bottom: 2px; transition: color .2s, border-color .2s;
+      padding-bottom: 2px; transition: color .2s;
     }
     a.btn-line:hover { color: var(--green); }
-    a.btn-line.light { color: #F5F3EE; border-color: rgba(255,255,255,.4); }
+    a.btn-line.light { color: #F5F3EE; border-color: rgba(255,255,255,.35); }
     a.btn-line.light:hover { color: #fff; border-color: #fff; }
 
-    /* ────────────────────────────────────────
-       SLIDE 0 — HERO
-    ──────────────────────────────────────── */
-    .hero-layout {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem; align-items: end;
-    }
-    .hero-kicker {
-      font-size: 11px; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--green);
-      margin-bottom: 1.5rem;
-    }
+    /* SLIDE 0 — HERO */
+    .hero-layout { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; }
+    .hero-kicker { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--green); margin-bottom: 1.5rem; }
     h1 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: clamp(4.5rem, 11vw, 9.5rem);
@@ -129,50 +119,41 @@
       margin-bottom: 2rem;
     }
     h1 em { font-style: italic; color: var(--green); }
-    .hero-meta {
-      font-size: 12px; color: var(--muted); margin-bottom: 2rem;
-      line-height: 1.9;
-    }
+    .hero-meta { font-size: 13px; color: var(--muted); margin-bottom: 2rem; line-height: 1.9; }
     .hero-cta { display: flex; gap: 2rem; align-items: center; }
-    .hero-loc { font-size: 11px; color: var(--rule); letter-spacing: .04em; }
-    .hero-accent {
-      width: 3px; height: 200px; background: var(--green);
-      flex-shrink: 0; align-self: stretch;
-    }
+    .hero-accent { width: 3px; height: 200px; background: var(--green); flex-shrink: 0; align-self: stretch; }
 
-    /* ────────────────────────────────────────
-       SLIDE 1 — SOBRE
-    ──────────────────────────────────────── */
+    /* SLIDE 1 — SOBRE */
     .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .sobre-text { font-size: 16px; line-height: 1.85; font-weight: 400; }
+    .sobre-text { font-size: 15px; font-weight: 300; line-height: 1.9; }
     .sobre-text p + p { margin-top: 1.1rem; }
     .sobre-aside { padding-top: .25rem; }
-    .aside-h { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: .75rem; margin-top: 1.5rem; }
+    .aside-h { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: .6rem; margin-top: 1.4rem; }
     .aside-h:first-child { margin-top: 0; }
-    .v-list { display: flex; flex-direction: column; gap: .4rem; font-size: 13px; }
-    .v-item { display: flex; gap: .6rem; align-items: baseline; }
-    .v-item::before { content: '—'; color: var(--green); font-weight: 700; flex-shrink: 0; }
-    .hobby-list { font-size: 13px; color: var(--muted); line-height: 1.8; }
+    .v-list { display: flex; flex-direction: column; gap: .35rem; font-size: 13px; }
+    .v-item { display: flex; gap: .5rem; align-items: baseline; }
+    .v-item::before { content: '→'; color: var(--green); font-size: 10px; flex-shrink: 0; }
+    .hobby-list { font-size: 13px; color: var(--muted); line-height: 1.85; }
+    .lang-row { display: flex; gap: 2rem; font-size: 13px; margin-top: .4rem; }
+    .lang-item { display: flex; flex-direction: column; gap: .1rem; }
+    .lang-name { font-weight: 500; }
+    .lang-level { font-size: 11px; color: var(--muted); }
 
-    /* ────────────────────────────────────────
-       SLIDE 2 — IMPACTO
-    ──────────────────────────────────────── */
+    /* SLIDE 2 — IMPACTO */
     .impact-h {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: clamp(2rem, 4.5vw, 3.5rem);
       font-weight: 400; font-style: italic; line-height: 1.25;
-      color: rgba(255,255,255,.45); margin-bottom: 2.5rem;
-      letter-spacing: -.01em;
+      color: rgba(255,255,255,.4); margin-bottom: 2.5rem;
     }
     .impact-h strong { color: #F5F3EE; font-style: normal; font-weight: 700; }
 
-    /* stats segmentados */
     .stats-cats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255,255,255,.12); }
     .sc { padding: 0 1.75rem; border-right: 1px solid rgba(255,255,255,.1); }
     .sc:first-child { padding-left: 0; }
     .sc:last-child { border-right: none; padding-right: 0; }
     .sc-label {
-      font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      font-size: 9px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
       color: rgba(255,255,255,.28); padding: 1.25rem 0 .9rem;
       border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 1.25rem;
     }
@@ -182,13 +163,10 @@
       font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700;
       letter-spacing: -.04em; line-height: .9;
       color: var(--green); margin-bottom: .4rem;
-      font-family: Arial, Helvetica, sans-serif;
     }
     .st-l { font-size: 11px; color: rgba(255,255,255,.45); line-height: 1.55; }
 
-    /* ────────────────────────────────────────
-       SLIDE 3 — EXPERIÊNCIA
-    ──────────────────────────────────────── */
+    /* SLIDE 3 — EXPERIÊNCIA */
     .exp-list { margin-top: .5rem; }
     .exp-row {
       display: grid; grid-template-columns: 1fr auto;
@@ -197,23 +175,20 @@
       border-bottom: 1px solid var(--rule);
     }
     .exp-row:first-child { border-top: 1px solid var(--rule); }
-    .exp-title { font-size: 14px; font-weight: 700; margin-bottom: .2rem; }
-    .exp-org { font-size: 12px; color: var(--green); font-weight: 700; margin-bottom: .35rem; }
+    .exp-title { font-size: 14px; font-weight: 600; margin-bottom: .2rem; }
+    .exp-org { font-size: 12px; color: var(--green); font-weight: 600; margin-bottom: .35rem; }
     .exp-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
     .exp-period { font-size: 11px; color: var(--muted); white-space: nowrap; text-align: right; }
-    .exp-status { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-top: .35rem; }
+    .exp-status { display: inline-block; font-size: 9px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-top: .3rem; }
     .exp-status.now { color: var(--green); }
     .exp-status.past { color: var(--rule); }
 
-    /* ────────────────────────────────────────
-       SLIDE 4 — FERRAMENTAS
-    ──────────────────────────────────────── */
+    /* SLIDE 4 — FERRAMENTAS */
     .tools-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
     .tool-group + .tool-group { margin-top: 1.75rem; }
     .tool-h {
-      font-size: 10px; font-weight: 700; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--muted);
-      margin-bottom: .6rem;
+      font-size: 10px; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: .6rem;
     }
     .tool-list {
       font-size: 13px; line-height: 2;
@@ -222,14 +197,15 @@
     }
     .tool-logos { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1rem; }
     .tl { display: flex; flex-direction: column; align-items: center; gap: .3rem; }
-    .tl img { width: 28px; height: 28px; display: block; }
-    .tl span { font-size: 10px; color: var(--muted); letter-spacing: .02em; }
+    .tl img {
+      width: 26px; height: 26px; display: block;
+      filter: invert(29%) sepia(40%) saturate(700%) hue-rotate(110deg) brightness(90%);
+    }
+    .tl span { font-size: 10px; color: var(--muted); }
 
-    /* ────────────────────────────────────────
-       SLIDE 5 — SANKOFA EGBÉ
-    ──────────────────────────────────────── */
+    /* SLIDE 5 — SANKOFA */
     .sankofa-layout { display: grid; grid-template-columns: 1fr auto; gap: 5rem; align-items: center; }
-    .s-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .75rem; }
+    .s-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: .75rem; }
     h2.s-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: clamp(3rem, 7.5vw, 6rem);
@@ -237,56 +213,51 @@
       color: #F5F3EE; margin-bottom: 1.5rem;
     }
     h2.s-title em { font-style: italic; color: #6DBFA0; }
-    .s-desc { font-size: 15px; line-height: 1.85; color: rgba(255,255,255,.6); max-width: 500px; margin-bottom: 2rem; }
+    .s-desc { font-size: 14px; font-weight: 300; line-height: 1.85; color: rgba(255,255,255,.6); max-width: 500px; margin-bottom: 1.75rem; }
     .s-list { display: flex; flex-direction: column; gap: .3rem; }
-    .s-item { font-size: 12px; color: rgba(255,255,255,.55); padding-left: 1.1rem; position: relative; }
-    .s-item::before { content: '→'; position: absolute; left: 0; color: #6DBFA0; font-weight: 700; }
-    .s-bars { display: flex; flex-direction: column; gap: 8px; width: 120px; }
-    .s-bar { height: 3px; background: rgba(255,255,255,.12); }
+    .s-item { font-size: 12px; color: rgba(255,255,255,.5); padding-left: 1.1rem; position: relative; }
+    .s-item::before { content: '→'; position: absolute; left: 0; color: #6DBFA0; font-weight: 600; font-size: 10px; }
+    .s-bars { display: flex; flex-direction: column; gap: 8px; width: 100px; }
+    .s-bar { height: 3px; background: rgba(255,255,255,.1); }
     .s-bar:nth-child(1) { width: 100%; background: #6DBFA0; }
-    .s-bar:nth-child(2) { width: 75%; }
-    .s-bar:nth-child(3) { width: 55%; background: rgba(109,191,160,.4); }
-    .s-bar:nth-child(4) { width: 85%; }
-    .s-bar:nth-child(5) { width: 40%; }
-    .s-bar:nth-child(6) { width: 90%; background: rgba(109,191,160,.25); }
+    .s-bar:nth-child(2) { width: 72%; }
+    .s-bar:nth-child(3) { width: 50%; background: rgba(109,191,160,.4); }
+    .s-bar:nth-child(4) { width: 88%; }
+    .s-bar:nth-child(5) { width: 38%; }
+    .s-bar:nth-child(6) { width: 62%; background: rgba(109,191,160,.25); }
 
-    /* ────────────────────────────────────────
-       SLIDE 6 — PROJETOS + LIDERANÇA
-    ──────────────────────────────────────── */
+    /* SLIDE 6 — PROJETOS + LIDERANÇA */
     .pl-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-    .proj-block { padding: 2rem; border: 1px solid var(--rule); }
-    .proj-h { font-size: 15px; font-weight: 700; margin-bottom: .5rem; }
+    .proj-block { padding: 1.75rem; border: 1px solid var(--rule); }
+    .proj-h { font-size: 15px; font-weight: 600; margin-bottom: .5rem; }
     .proj-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
     .proj-tags { font-size: 11px; color: var(--muted); }
     .proj-tags span + span::before { content: ' · '; }
 
-    .lead-row { padding: 1rem 0; }
+    .lead-row { padding: .9rem 0; }
     .lead-row + .lead-row { border-top: 1px solid var(--rule); }
-    .lead-top { display: flex; align-items: baseline; gap: .75rem; margin-bottom: .25rem; }
+    .lead-top { display: flex; align-items: baseline; gap: .65rem; margin-bottom: .25rem; }
     .lead-tag { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green); flex-shrink: 0; }
-    .lead-h { font-size: 13px; font-weight: 700; }
+    .lead-h { font-size: 13px; font-weight: 600; }
     .lead-p { font-size: 11px; color: var(--muted); line-height: 1.6; margin-bottom: .35rem; }
+    .lead-meta { font-size: 10px; color: var(--rule); margin-bottom: .3rem; }
     .lead-links { display: flex; gap: 1rem; }
 
-    /* ────────────────────────────────────────
-       SLIDE 7 — FORMAÇÃO
-    ──────────────────────────────────────── */
+    /* SLIDE 7 — FORMAÇÃO */
     .edu-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .edu-row { padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
+    .edu-row { padding: .95rem 0; border-bottom: 1px solid var(--rule); }
     .edu-row:first-child { border-top: 1px solid var(--rule); }
-    .edu-row-top { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: baseline; margin-bottom: .25rem; }
-    .edu-deg { font-size: 13px; font-weight: 700; }
-    .edu-per { font-size: 11px; color: var(--muted); white-space: nowrap; }
-    .edu-inst { font-size: 11px; color: var(--green); font-weight: 700; margin-bottom: .2rem; }
-    .edu-det { font-size: 11px; color: var(--muted); line-height: 1.55; }
-    .cert-row { padding: .75rem 0; border-bottom: 1px solid var(--rule); font-size: 12px; }
+    .edu-row-top { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: baseline; margin-bottom: .2rem; }
+    .edu-deg { font-size: 13px; font-weight: 600; }
+    .edu-per { font-size: 10px; color: var(--muted); white-space: nowrap; }
+    .edu-inst { font-size: 11px; color: var(--green); font-weight: 600; margin-bottom: .15rem; }
+    .edu-det { font-size: 11px; color: var(--muted); line-height: 1.5; }
+    .cert-row { padding: .65rem 0; border-bottom: 1px solid var(--rule); font-size: 12px; font-weight: 500; }
     .cert-row:first-child { border-top: 1px solid var(--rule); }
-    .cert-iss { font-size: 10px; color: var(--green); font-weight: 700; margin-top: .1rem; }
-    .certs-scroll { max-height: 340px; overflow-y: auto; }
+    .cert-iss { font-size: 10px; color: var(--muted); font-weight: 400; margin-top: .1rem; }
+    .certs-scroll { max-height: 360px; overflow-y: auto; }
 
-    /* ────────────────────────────────────────
-       SLIDE 8 — CONTATO
-    ──────────────────────────────────────── */
+    /* SLIDE 8 — CONTATO */
     .ct-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
     h2.ct-h {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -295,16 +266,13 @@
       color: #F5F3EE; margin-bottom: 1.5rem;
     }
     h2.ct-h em { font-style: italic; color: #6DBFA0; }
-    .ct-sub { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.8; margin-bottom: 2.5rem; }
+    .ct-sub { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.45); line-height: 1.85; margin-bottom: 2.5rem; }
     .ct-list { display: flex; flex-direction: column; gap: 1.5rem; }
-    .ct-item {}
-    .ct-lbl { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: .15rem; }
-    .ct-val { font-size: 14px; color: rgba(255,255,255,.75); text-decoration: none; }
+    .ct-lbl { font-size: 9px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: .15rem; }
+    .ct-val { font-size: 14px; color: rgba(255,255,255,.72); text-decoration: none; display: block; }
     .ct-val:hover { color: #6DBFA0; }
 
-    /* ────────────────────────────────────────
-       RESPONSIVE
-    ──────────────────────────────────────── */
+    /* RESPONSIVE */
     @media (max-width: 720px) {
       html, body { overflow: auto; }
       #ss { position: relative; transform: none !important; }
@@ -313,9 +281,10 @@
       #dots, #btmbar { display: none; }
       .hero-layout, .sobre-grid, .tools-layout, .sankofa-layout,
       .pl-layout, .edu-layout, .ct-layout { grid-template-columns: 1fr; gap: 2rem; }
-      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stats-cats { grid-template-columns: 1fr; }
+      .sc { padding: 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
       .hero-accent { display: none; }
-      .exp-row { grid-template-columns: 1fr; gap: .5rem; }
+      .exp-row { grid-template-columns: 1fr; gap: .4rem; }
     }
   </style>
 </head>
@@ -380,8 +349,8 @@
       <div class="sec-label">Sobre</div>
       <div class="sobre-grid">
         <div class="sobre-text">
-          <p>Sou soteropolitana, bacharel em Ciências Biológicas. Minha trajetória começou na Escola SESI, onde surgiu o interesse por ciência e tecnologia — interesse que se transformou em carreira, voluntariado e projetos que atravessam diversas áreas.</p>
-          <p>Hoje atuo como consultora técnica ambiental no Programa FPI/BA e como servidora voluntária no MPBA–NUSF. Geoprocessamento, dados, campo e tecnologia caminham juntos no meu dia a dia.</p>
+          <p>Sou soteropolitana, bacharel em Ciências Biológicas. Minha trajetória começou na Escola SESI, onde surgiu o interesse por ciência e tecnologia, interesse que se transformou em carreira, voluntariado e projetos que atravessam diversas áreas.</p>
+          <p>Hoje atuo como consultora técnica ambiental no Programa FPI/BA e como servidora voluntária no MPBA/NUSF. Geoprocessamento, dados, campo e tecnologia caminham juntos no meu dia a dia.</p>
         </div>
         <div class="sobre-aside">
           <div class="aside-h">Valores</div>
@@ -390,6 +359,11 @@
             <div class="v-item">Responsabilidade e respeito</div>
             <div class="v-item">Aprendizado contínuo</div>
             <div class="v-item">Preservação e ancestralidade</div>
+          </div>
+          <div class="aside-h">Idiomas</div>
+          <div class="lang-row">
+            <div class="lang-item"><span class="lang-name">Inglês</span><span class="lang-level">Básico</span></div>
+            <div class="lang-item"><span class="lang-name">Espanhol</span><span class="lang-level">Básico</span></div>
           </div>
           <div class="aside-h">Interesses</div>
           <div class="hobby-list">Trilhas · Natação · Pedal<br>Design gráfico · Ilustração · Viagens</div>
@@ -425,7 +399,7 @@
           </div>
           <div class="st">
             <div class="st-n">OBR</div>
-            <div class="st-l">juíza nacional — Robótica 2023, Salvador</div>
+            <div class="st-l">juíza nacional, Robótica 2023, Salvador</div>
           </div>
         </div>
 
@@ -433,7 +407,7 @@
           <div class="sc-label">Estudantil</div>
           <div class="st">
             <div class="st-n">2ª</div>
-            <div class="st-l">NASA Space Apps — Equipe Hypatia, Salvador</div>
+            <div class="st-l">NASA Space Apps, Equipe Hypatia, Salvador</div>
           </div>
           <div class="st">
             <div class="st-n">HCK</div>
@@ -465,7 +439,7 @@
         <div class="exp-row">
           <div>
             <div class="exp-title">Servidora Voluntária</div>
-            <div class="exp-org">MPBA – NUSF</div>
+            <div class="exp-org">MPBA / NUSF</div>
             <div class="exp-desc">Apoio técnico ambiental, sistematização de dados e análise de informações territoriais.</div>
           </div>
           <div>
@@ -476,11 +450,11 @@
         <div class="exp-row">
           <div>
             <div class="exp-title">Estagiária de Biologia</div>
-            <div class="exp-org">MPBA – NUSF</div>
+            <div class="exp-org">MPBA / NUSF</div>
             <div class="exp-desc">Geoprocessamento, análise espacial e elaboração de produtos técnicos de fauna e flora.</div>
           </div>
           <div>
-            <div class="exp-period">Jul 2023 – Jul 2025</div>
+            <div class="exp-period">Jul 2023 — Jul 2025</div>
             <div class="exp-status past">encerrado</div>
           </div>
         </div>
@@ -491,7 +465,40 @@
             <div class="exp-desc">Educação tecnológica e robótica educacional.</div>
           </div>
           <div>
-            <div class="exp-period">Jul – Out 2024</div>
+            <div class="exp-period">Jul — Out 2024</div>
+            <div class="exp-status past">encerrado</div>
+          </div>
+        </div>
+        <div class="exp-row">
+          <div>
+            <div class="exp-title">Atendente I e II</div>
+            <div class="exp-org">RD</div>
+            <div class="exp-desc">Atendimento ao público, trabalho colaborativo e processos internos. Progressão de Atendente I para II ao longo do período.</div>
+          </div>
+          <div>
+            <div class="exp-period">Mar 2023 — Jul 2024</div>
+            <div class="exp-status past">encerrado</div>
+          </div>
+        </div>
+        <div class="exp-row">
+          <div>
+            <div class="exp-title">Assistente Administrativo</div>
+            <div class="exp-org">Sinpojud · Aprendiz</div>
+            <div class="exp-desc">Gestão documental, Microsoft Office e suporte administrativo em sindicato do poder judiciário.</div>
+          </div>
+          <div>
+            <div class="exp-period">Nov 2019 — Nov 2021</div>
+            <div class="exp-status past">encerrado</div>
+          </div>
+        </div>
+        <div class="exp-row">
+          <div>
+            <div class="exp-title">Estágio em Gerência Educacional</div>
+            <div class="exp-org">IEL Bahia</div>
+            <div class="exp-desc">Apoio à gestão educacional em estágio supervisionado.</div>
+          </div>
+          <div>
+            <div class="exp-period">Set 2018 — Set 2019</div>
             <div class="exp-status past">encerrado</div>
           </div>
         </div>
@@ -508,22 +515,22 @@
         <div>
           <div class="tool-group">
             <div class="tool-h">Geotecnologias</div>
-            <div class="tool-list">QGIS<br>ArcGIS<br>Google Earth Engine<br>Google Earth Pro</div>
+            <div class="tool-list">QGIS · ArcGIS<br>Google Earth Engine · Google Earth Pro</div>
           </div>
           <div class="tool-group">
             <div class="tool-h">Dados &amp; Programação</div>
-            <div class="tool-list">Python · R<br>Power BI · Excel · Google Sheets<br>Automação · IA aplicada</div>
+            <div class="tool-list">Python · R<br>Power BI · Excel · Google Sheets<br>Office 365 · Automação · IA aplicada</div>
           </div>
           <div class="tool-logos">
-            <div class="tl"><img src="https://cdn.simpleicons.org/qgis/2E6B4A" alt="QGIS"><span>QGIS</span></div>
-            <div class="tl"><img src="https://cdn.simpleicons.org/python/2E6B4A" alt="Python"><span>Python</span></div>
-            <div class="tl"><img src="https://cdn.simpleicons.org/r/2E6B4A" alt="R"><span>R</span></div>
-            <div class="tl"><img src="https://cdn.simpleicons.org/powerbi/2E6B4A" alt="Power BI"><span>Power BI</span></div>
-            <div class="tl"><img src="https://cdn.simpleicons.org/microsoft365/2E6B4A" alt="Office 365"><span>Office 365</span></div>
-            <div class="tl"><img src="https://cdn.simpleicons.org/googleearth/2E6B4A" alt="Google Earth"><span>Google Earth</span></div>
-            <div class="tl"><img src="https://cdn.simpleicons.org/visualstudiocode/2E6B4A" alt="VS Code"><span>VS Code</span></div>
-            <div class="tl"><img src="https://cdn.simpleicons.org/adobeillustrator/2E6B4A" alt="Illustrator"><span>Illustrator</span></div>
-            <div class="tl"><img src="https://cdn.simpleicons.org/adobephotoshop/2E6B4A" alt="Photoshop"><span>Photoshop</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/qgis" alt="QGIS"><span>QGIS</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/python" alt="Python"><span>Python</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/r" alt="R"><span>R</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/powerbi" alt="Power BI"><span>Power BI</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/microsoft365" alt="Office 365" onerror="this.parentElement.style.display='none'"><span>Office 365</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/googleearth" alt="Google Earth" onerror="this.parentElement.style.display='none'"><span>Google Earth</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/visualstudiocode" alt="VS Code"><span>VS Code</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/adobeillustrator" alt="Illustrator" onerror="this.parentElement.style.display='none'"><span>Illustrator</span></div>
+            <div class="tl"><img src="https://cdn.simpleicons.org/adobephotoshop" alt="Photoshop" onerror="this.parentElement.style.display='none'"><span>Photoshop</span></div>
           </div>
         </div>
         <div>
@@ -533,7 +540,7 @@
           </div>
           <div class="tool-group">
             <div class="tool-h">Criação Visual</div>
-            <div class="tool-list">Design gráfico<br>Ilustração<br>Edição de imagem</div>
+            <div class="tool-list">Design gráfico · Ilustração<br>Adobe Illustrator · Photoshop</div>
           </div>
         </div>
       </div>
@@ -548,7 +555,7 @@
         <div>
           <div class="s-eyebrow">Iniciativa Social · Membro Fundadora · Pernambués, Salvador / BA</div>
           <h2 class="s-title">Coletivo<br><em>Sankofa Egbé</em></h2>
-          <p class="s-desc">Mais que aulas de robótica — levamos ciência, tecnologia, engenharia, artes e matemática (STEAM) para crianças de terreiro em Pernambués, Salvador. O nome une o conceito Akan do Sankofa — olhar para as raízes para avançar — e Egbé, que em Yorubá significa grupo, coletivo.</p>
+          <p class="s-desc">Mais que aulas de robótica: levamos ciência, tecnologia, engenharia, artes e matemática (STEAM) para crianças de terreiro em Pernambués, Salvador. O nome une o conceito Akan do Sankofa — olhar para as raízes para avançar — e Egbé, que em Yorubá significa grupo, coletivo.</p>
           <div class="s-list">
             <div class="s-item">Ciência e Tecnologia</div>
             <div class="s-item">Engenharia e Matemática</div>
@@ -558,12 +565,9 @@
           </div>
         </div>
         <div class="s-bars" aria-hidden="true">
-          <div class="s-bar"></div>
-          <div class="s-bar"></div>
-          <div class="s-bar"></div>
-          <div class="s-bar"></div>
-          <div class="s-bar"></div>
-          <div class="s-bar"></div>
+          <div class="s-bar"></div><div class="s-bar"></div>
+          <div class="s-bar"></div><div class="s-bar"></div>
+          <div class="s-bar"></div><div class="s-bar"></div>
         </div>
       </div>
     </div>
@@ -575,6 +579,7 @@
     <div class="wrap">
       <div class="sec-label">Projetos &amp; Liderança</div>
       <div class="pl-layout">
+
         <div>
           <div class="proj-block">
             <div class="proj-h">Hub de Torneio de Robótica</div>
@@ -584,13 +589,15 @@
             </div>
           </div>
         </div>
+
         <div>
           <div class="lead-row">
             <div class="lead-top">
               <span class="lead-tag">FLL</span>
               <span class="lead-h">FIRST® LEGO® League</span>
             </div>
-            <div class="lead-p">Árbitra-Chefe, juíza voluntária e ex-competidora. 15 anos de envolvimento com robótica educacional no Brasil.</div>
+            <div class="lead-meta">Competidora (2011) · Mentora · Árbitra-Chefe desde 2018 · 8 anos e 7 meses</div>
+            <div class="lead-p">Avalio Projetos de Inovação, Design de Robô, Desafio do Robô e Core Values de equipes de jovens de 9 a 16 anos, com base nos princípios de Gracious Professionalism® e Coopertition®. Atuei em torneios nos estados de Pernambuco, DF, ES, Goiás e Bahia.</div>
             <div class="lead-links">
               <a class="link-out" href="https://www.firstlegoleague.org/" target="_blank" rel="noopener">firstlegoleague.org →</a>
             </div>
@@ -600,14 +607,24 @@
               <span class="lead-tag">OBR</span>
               <span class="lead-h">Olimpíada Brasileira de Robótica</span>
             </div>
-            <div class="lead-p">Juíza voluntária na etapa nacional — Robótica 2023, Centro de Convenções de Salvador.</div>
+            <div class="lead-meta">Juíza voluntária · ago 2018 ao momento</div>
+            <div class="lead-p">Avaliação de desafios técnicos e trabalho em equipe em competições de robótica educacional com estudantes do ensino fundamental e médio.</div>
+          </div>
+          <div class="lead-row">
+            <div class="lead-top">
+              <span class="lead-tag">VS</span>
+              <span class="lead-h">Virada Sustentável Salvador</span>
+            </div>
+            <div class="lead-meta">Voluntária · nov 2019 · Parque da Cidade</div>
+            <div class="lead-p">Atuação na Virada Educação com ações alinhadas aos ODS, engajando a comunidade em educação ambiental, sustentabilidade e transformação social.</div>
           </div>
           <div class="lead-row">
             <div class="lead-top">
               <span class="lead-tag">NASA</span>
               <span class="lead-h">NASA Space Apps Challenge</span>
             </div>
-            <div class="lead-p">Equipe Hypatia — 2º lugar em Salvador (2020). Batata transgênica com B-12. Equipe 100% feminina.</div>
+            <div class="lead-meta">Equipe Hypatia · 2º lugar local · out 2020 · Salvador</div>
+            <div class="lead-p">Proposta de batata geneticamente modificada para produzir vitamina B12, visando alternativa nutricional de baixo custo para populações com acesso limitado a alimentos de origem animal.</div>
             <div class="lead-links">
               <a class="link-out" href="https://www.spaceappschallenge.org/" target="_blank" rel="noopener">spaceappschallenge.org →</a>
               <a class="link-out" href="https://ihac.ufba.br/pt/29190/" target="_blank" rel="noopener">Notícia IHAC/UFBA →</a>
@@ -618,9 +635,11 @@
               <span class="lead-tag">HCK</span>
               <span class="lead-h">Hackathon+ Porto Seguro</span>
             </div>
-            <div class="lead-p">Participação em 2019 com soluções colaborativas para desafios reais.</div>
+            <div class="lead-meta">set 2019</div>
+            <div class="lead-p">Aplicativo gamificado de turismo: visitantes acumulam pontos ao explorar e avaliar pontos turísticos, com desconto em estabelecimentos parceiros locais.</div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -635,41 +654,43 @@
           <div class="edu-row">
             <div class="edu-row-top">
               <div class="edu-deg">Bacharelado em Ciências Biológicas</div>
-              <div class="edu-per">2021 – 2025</div>
+              <div class="edu-per">2021 — 2025</div>
             </div>
             <div class="edu-inst">Universidade Estácio de Sá</div>
           </div>
           <div class="edu-row">
             <div class="edu-row-top">
-              <div class="edu-deg">Gestão das Águas</div>
-              <div class="edu-per">2025 – presente</div>
+              <div class="edu-deg">Gestão das Águas e Sustentabilidade dos Recursos Hídricos no Brasil</div>
+              <div class="edu-per">2025 — presente</div>
             </div>
             <div class="edu-inst">UNYLEYA · Pós-Graduação</div>
           </div>
           <div class="edu-row">
             <div class="edu-row-top">
-              <div class="edu-deg">Manejo e Conservação da Fauna</div>
-              <div class="edu-per">2025 – presente</div>
+              <div class="edu-deg">Manejo e Conservação da Fauna Silvestre e Exótica</div>
+              <div class="edu-per">2025 — presente</div>
             </div>
             <div class="edu-inst">UNYLEYA · Pós-Graduação</div>
           </div>
           <div class="edu-row">
             <div class="edu-row-top">
-              <div class="edu-deg">Recuperação Ambiental</div>
-              <div class="edu-per">2025 – presente</div>
+              <div class="edu-deg">Recuperação Ambiental de Áreas Degradadas e Contaminadas</div>
+              <div class="edu-per">2025 — presente</div>
             </div>
             <div class="edu-inst">UNYLEYA · Pós-Graduação</div>
           </div>
         </div>
         <div>
           <div class="certs-scroll">
-            <div class="cert-row">Geoinformação na SPU – Conceitos, Fundamentos e Tecnologias<div class="cert-iss">ENAP · 2026</div></div>
-            <div class="cert-row">Aplicação do Power BI para Aprimoramento da Gestão<div class="cert-iss">ENAP · 2026</div></div>
-            <div class="cert-row">Introdução à Gestão de Projetos<div class="cert-iss">Fundação Bradesco · 2026</div></div>
-            <div class="cert-row">Análise de Dados no Power BI<div class="cert-iss">Fundação Bradesco · 2023</div></div>
-            <div class="cert-row">Noções Introdutórias de Direito Ambiental<div class="cert-iss">Estácio · 2025</div></div>
-            <div class="cert-row">Industrialização e Impactos Ambientais<div class="cert-iss">Estácio · 2025</div></div>
-            <div class="cert-row">Excel com IA · Power BI · Automação com n8n<div class="cert-iss">Santander / DIO · em andamento</div></div>
+            <div class="cert-row">Aplicação do Power BI para Aprimoramento da Gestão<div class="cert-iss">ENAP · jan 2026</div></div>
+            <div class="cert-row">Geoinformação na SPU: conceitos, fundamentos e tecnologias<div class="cert-iss">ENAP · jan 2026</div></div>
+            <div class="cert-row">Introdução à Gestão de Projetos<div class="cert-iss">Fundação Bradesco · jan 2026</div></div>
+            <div class="cert-row">Introdução à Libras<div class="cert-iss">ENAP · jan 2026</div></div>
+            <div class="cert-row">Geração de Energia Verde<div class="cert-iss">Estácio · abr 2025</div></div>
+            <div class="cert-row">Industrialização e Impactos Ambientais<div class="cert-iss">Estácio · mar 2025</div></div>
+            <div class="cert-row">Noções Introdutórias e Fundamentos do Direito Ambiental<div class="cert-iss">Estácio · mar 2025</div></div>
+            <div class="cert-row">Sustentabilidade e Meio Ambiente<div class="cert-iss">Estácio · mar 2025</div></div>
+            <div class="cert-row">Análise de Dados no Power BI<div class="cert-iss">Fundação Bradesco · jan 2023</div></div>
           </div>
         </div>
       </div>
@@ -687,22 +708,10 @@
           <a href="mailto:taliaoliveir4@outlook.com" class="btn-line light">Enviar mensagem</a>
         </div>
         <div class="ct-list">
-          <div class="ct-item">
-            <div class="ct-lbl">Email</div>
-            <a class="ct-val" href="mailto:taliaoliveir4@outlook.com">taliaoliveir4@outlook.com</a>
-          </div>
-          <div class="ct-item">
-            <div class="ct-lbl">Telefone</div>
-            <span class="ct-val">(71) 99117-8842</span>
-          </div>
-          <div class="ct-item">
-            <div class="ct-lbl">LinkedIn</div>
-            <a class="ct-val" href="https://www.linkedin.com/in/talia-oliveira" target="_blank" rel="noopener">/in/talia-oliveira</a>
-          </div>
-          <div class="ct-item">
-            <div class="ct-lbl">Localização</div>
-            <span class="ct-val">Salvador / BA · Foz do Iguaçu / PR</span>
-          </div>
+          <div><div class="ct-lbl">Email</div><a class="ct-val" href="mailto:taliaoliveir4@outlook.com">taliaoliveir4@outlook.com</a></div>
+          <div><div class="ct-lbl">Telefone</div><span class="ct-val">(71) 99117-8842</span></div>
+          <div><div class="ct-lbl">LinkedIn</div><a class="ct-val" href="https://www.linkedin.com/in/talia-oliveira" target="_blank" rel="noopener">/in/talia-oliveira</a></div>
+          <div><div class="ct-lbl">Localização</div><span class="ct-val">Salvador / BA · Foz do Iguaçu / PR</span></div>
         </div>
       </div>
     </div>
@@ -712,17 +721,17 @@
 
 <script>
 (function () {
-  const ss     = document.getElementById('ss');
-  const dots   = document.querySelectorAll('.dot');
-  const slides = document.querySelectorAll('.slide');
-  const topbar = document.getElementById('topbar');
-  const btmbar = document.getElementById('btmbar');
-  const bcnt   = document.getElementById('bcnt');
-  const blbl   = document.getElementById('blbl');
-  const aprev  = document.getElementById('aprev');
-  const anext  = document.getElementById('anext');
-  const N = slides.length;
-  let cur = 0, busy = false;
+  var ss     = document.getElementById('ss');
+  var dots   = document.querySelectorAll('.dot');
+  var slides = document.querySelectorAll('.slide');
+  var topbar = document.getElementById('topbar');
+  var btmbar = document.getElementById('btmbar');
+  var bcnt   = document.getElementById('bcnt');
+  var blbl   = document.getElementById('blbl');
+  var aprev  = document.getElementById('aprev');
+  var anext  = document.getElementById('anext');
+  var N = slides.length;
+  var cur = 0, busy = false;
 
   function pad(n) { return (n < 10 ? '0' : '') + n; }
 
