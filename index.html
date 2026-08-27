@@ -140,31 +140,52 @@
     .lang-level { font-size: 11px; color: var(--muted); }
 
     /* SLIDE 2 — IMPACTO */
-    .impact-h {
+    .nums-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 4.5rem;
+      align-items: center;
+    }
+    .nums-side { display: flex; flex-direction: column; gap: 1.5rem; }
+    .nums-eyebrow {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(2rem, 4.5vw, 3.5rem);
-      font-weight: 400; font-style: italic; line-height: 1.25;
-      color: rgba(255,255,255,.4); margin-bottom: 2.5rem;
+      font-size: clamp(2rem, 4vw, 3rem); font-style: italic; font-weight: 400;
+      line-height: 1; color: rgba(255,255,255,.35);
     }
-    .impact-h strong { color: #F5F3EE; font-style: normal; font-weight: 700; }
+    .nums-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.8rem, 5.5vw, 4.5rem); font-weight: 700;
+      line-height: .88; letter-spacing: -.02em; color: #F5F3EE;
+    }
+    .nums-rule { width: 36px; height: 3px; background: var(--green); }
 
-    .stats-cats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255,255,255,.12); }
-    .sc { padding: 0 1.75rem; border-right: 1px solid rgba(255,255,255,.1); }
-    .sc:first-child { padding-left: 0; }
-    .sc:last-child { border-right: none; padding-right: 0; }
-    .sc-label {
-      font-size: 9px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
-      color: rgba(255,255,255,.28); padding: 1.25rem 0 .9rem;
-      border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 1.25rem;
+    .nums-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .nums-col {
+      padding: 0 2rem;
+      border-left: 1px solid rgba(255,255,255,.1);
     }
-    .st { margin-bottom: 1.25rem; }
-    .st:last-child { margin-bottom: 0; }
-    .st-n {
-      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700;
-      letter-spacing: -.04em; line-height: .9;
-      color: var(--green); margin-bottom: .4rem;
+    .nums-col:first-child { padding-left: 0; border-left: none; }
+    .nums-col-head {
+      font-size: 9px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 1.75rem;
+      padding-bottom: .75rem; border-bottom: 1px solid rgba(255,255,255,.08);
     }
-    .st-l { font-size: 11px; color: rgba(255,255,255,.45); line-height: 1.55; }
+    .nums-item { margin-bottom: 2rem; }
+    .nums-item:last-child { margin-bottom: 0; }
+    .nums-val {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 5.5vw, 5rem); font-weight: 700;
+      line-height: .85; letter-spacing: -.03em;
+      color: var(--green); display: block; margin-bottom: .55rem;
+    }
+    .nums-val.badge {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.15rem; font-weight: 700; letter-spacing: .06em;
+      border: 1.5px solid rgba(46,107,74,.55);
+      padding: .25rem .65rem; display: inline-block;
+      line-height: 1.4; margin-bottom: .65rem;
+    }
+    .nums-sub { font-size: 11px; color: rgba(255,255,255,.38); line-height: 1.6; display: block; }
 
     /* SLIDE 3 — EXPERIÊNCIA */
     .exp-list { margin-top: .5rem; }
@@ -384,45 +405,53 @@
   <div class="slide dk" data-lbl="Impacto">
     <div class="ghost" aria-hidden="true">03</div>
     <div class="wrap">
-      <p class="impact-h">Trajetória<br><strong>em números.</strong></p>
-      <div class="stats-cats">
+      <div class="nums-layout">
 
-        <div class="sc">
-          <div class="sc-label">Profissional</div>
-          <div class="st">
-            <div class="st-n">3+</div>
-            <div class="st-l">anos em análise ambiental</div>
-          </div>
-          <div class="st">
-            <div class="st-n">6</div>
-            <div class="st-l">etapas de campo FPI / BA</div>
-          </div>
+        <div class="nums-side">
+          <div class="nums-eyebrow">Trajetória</div>
+          <div class="nums-title">em<br>números</div>
+          <div class="nums-rule"></div>
         </div>
 
-        <div class="sc">
-          <div class="sc-label">Voluntariado</div>
-          <div class="st">
-            <div class="st-n">15</div>
-            <div class="st-l">anos com a FIRST® LEGO® League</div>
-          </div>
-          <div class="st">
-            <div class="st-n">OBR</div>
-            <div class="st-l">juíza nacional, Robótica 2023, Salvador</div>
-          </div>
-        </div>
+        <div class="nums-grid">
 
-        <div class="sc">
-          <div class="sc-label">Estudantil</div>
-          <div class="st">
-            <div class="st-n">2ª</div>
-            <div class="st-l">NASA Space Apps, Equipe Hypatia, Salvador</div>
+          <div class="nums-col">
+            <div class="nums-col-head">Profissional</div>
+            <div class="nums-item">
+              <span class="nums-val">3+</span>
+              <span class="nums-sub">anos em análise ambiental</span>
+            </div>
+            <div class="nums-item">
+              <span class="nums-val">6</span>
+              <span class="nums-sub">etapas de campo FPI / BA</span>
+            </div>
           </div>
-          <div class="st">
-            <div class="st-n">HCK</div>
-            <div class="st-l">Hackathon+ Porto Seguro, 2019</div>
-          </div>
-        </div>
 
+          <div class="nums-col">
+            <div class="nums-col-head">Voluntariado</div>
+            <div class="nums-item">
+              <span class="nums-val">15</span>
+              <span class="nums-sub">anos com a FIRST® LEGO® League</span>
+            </div>
+            <div class="nums-item">
+              <span class="nums-val badge">OBR</span>
+              <span class="nums-sub">juíza nacional · Robótica 2023, Salvador</span>
+            </div>
+          </div>
+
+          <div class="nums-col">
+            <div class="nums-col-head">Estudantil</div>
+            <div class="nums-item">
+              <span class="nums-val">2ª</span>
+              <span class="nums-sub">NASA Space Apps · Equipe Hypatia, Salvador</span>
+            </div>
+            <div class="nums-item">
+              <span class="nums-val badge">HCK</span>
+              <span class="nums-sub">Hackathon+ Porto Seguro, 2019</span>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
