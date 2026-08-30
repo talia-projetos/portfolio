@@ -303,6 +303,43 @@
     .ct-val { font-size: 14px; color: rgba(255,255,255,.72); text-decoration: none; display: block; }
     .ct-val:hover { color: #6DBFA0; }
 
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .entering .sec-label   { animation: fadeUp .4s  cubic-bezier(.22,1,.36,1)       both; }
+    .entering .hero-kicker { animation: fadeUp .45s cubic-bezier(.22,1,.36,1)       both; }
+    .entering h1           { animation: fadeUp .5s  cubic-bezier(.22,1,.36,1) .06s  both; }
+    .entering .hero-meta   { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) .12s  both; }
+    .entering .hero-cta    { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) .18s  both; }
+    .entering .hero-accent { animation: fadeUp .4s  cubic-bezier(.22,1,.36,1) .24s  both; }
+    .entering .sobre-grid, .entering .tools-layout, .entering .sankofa-layout,
+    .entering .exp-list, .entering .edu-layout, .entering .ct-layout
+      { animation: fadeUp .55s cubic-bezier(.22,1,.36,1) .08s both; }
+    .entering .nums-side             { animation: fadeUp .5s cubic-bezier(.22,1,.36,1) .04s both; }
+    .entering .nums-col:nth-child(1) { animation: fadeUp .5s cubic-bezier(.22,1,.36,1) .10s both; }
+    .entering .nums-col:nth-child(2) { animation: fadeUp .5s cubic-bezier(.22,1,.36,1) .18s both; }
+    .entering .nums-col:nth-child(3) { animation: fadeUp .5s cubic-bezier(.22,1,.36,1) .26s both; }
+    .entering .pl-layout > *:nth-child(1) { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) .06s both; }
+    .entering .pl-layout > *:nth-child(2) { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) .12s both; }
+    .entering .pl-layout > *:nth-child(3) { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) .18s both; }
+    .entering .pl-layout > *:nth-child(4) { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) .24s both; }
+    .entering .pl-layout > *:nth-child(5) { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) .30s both; }
+    .entering .pl-layout > *:nth-child(6) { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) .36s both; }
+
+    /* HOVER EFFECTS */
+    .lead-row, .proj-block {
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .lead-row:hover, .proj-block:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      border-color: var(--green);
+    }
+    .exp-row { transition: background .18s ease; }
+    .exp-row:hover { background: rgba(46,107,74,.04); }
+
     /* RESPONSIVE */
     @media (max-width: 720px) {
       html, body { overflow: auto; }
@@ -311,11 +348,19 @@
       .wrap { padding: 70px 1.5rem; }
       #dots, #btmbar { display: none; }
       .hero-layout, .sobre-grid, .tools-layout, .sankofa-layout,
-      .pl-layout, .edu-layout, .ct-layout { grid-template-columns: 1fr; gap: 1.5rem; }
-      .stats-cats { grid-template-columns: 1fr; }
-      .sc { padding: 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+      .edu-layout, .ct-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+      .nums-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .nums-grid { grid-template-columns: 1fr; }
+      .nums-col { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,.1); padding-top: 1rem; }
+      .nums-col:first-child { border-top: none; padding-top: 0; }
+      .pl-layout { grid-template-columns: 1fr 1fr; }
       .hero-accent { display: none; }
       .exp-row { grid-template-columns: 1fr; gap: .4rem; }
+      .ct-list { gap: 1rem; }
+      .lead-row:hover, .proj-block:hover { transform: none; box-shadow: none; }
+    }
+    @media (max-width: 460px) {
+      .pl-layout { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -754,6 +799,21 @@
 
   function pad(n) { return (n < 10 ? '0' : '') + n; }
 
+  function animateNumbers(slide) {
+    slide.querySelectorAll('.nums-val:not(.badge)').forEach(function (el) {
+      var m = el.textContent.trim().match(/^(\d+)(.*)$/);
+      if (!m) return;
+      var target = +m[1], suffix = m[2];
+      var dur = Math.min(800 + target * 40, 1600), t0 = null;
+      (function tick(t) {
+        if (!t0) t0 = t;
+        var p = Math.min((t - t0) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(performance.now());
+    });
+  }
+
   function go(n) {
     if (busy) return;
     n = Math.max(0, Math.min(N - 1, n));
@@ -773,6 +833,11 @@
         ? (d.classList.contains('active') ? '#6DBFA0' : 'rgba(255,255,255,.2)')
         : '';
     });
+    var sl = slides[cur];
+    sl.classList.remove('entering');
+    void sl.offsetWidth;
+    sl.classList.add('entering');
+    if (cur === 2) animateNumbers(sl);
     setTimeout(function () { busy = false; }, 900);
   }
 
@@ -798,6 +863,8 @@
     var dy = ty0 - e.changedTouches[0].clientY;
     if (Math.abs(dy) > 55) go(cur + (dy > 0 ? 1 : -1));
   });
+
+  slides[0].classList.add('entering');
 })();
 </script>
 </body>
