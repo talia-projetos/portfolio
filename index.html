@@ -924,7 +924,7 @@
     canvas.width  = p.clientWidth  || window.innerWidth;
     canvas.height = p.clientHeight || window.innerHeight;
     CELL = Math.max(18, Math.floor(canvas.height / 28));
-    ROWS = Math.ceil(canvas.height / CELL) + 2;
+    ROWS = Math.floor(canvas.height / CELL);
     OX   = Math.round((canvas.width - COLS * CELL) / 2);
   }
 
