@@ -314,11 +314,7 @@
     .ct-val { font-size: 14px; color: rgba(255,255,255,.72); text-decoration: none; display: block; }
     .ct-val:hover { color: #6DBFA0; }
     .ct-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    #tetris-canvas {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      pointer-events: none; z-index: 5;
-    }
+
 
     /* ANIMATIONS */
     @keyframes fadeUp {
@@ -801,8 +797,7 @@
 
   <!-- 8 · CONTATO -->
   <div class="slide dg" data-lbl="Contato">
-    <canvas id="tetris-canvas" aria-hidden="true"></canvas>
-    <div class="ghost" aria-hidden="true">09</div>
+<div class="ghost" aria-hidden="true">09</div>
     <div class="wrap">
       <div class="ct-layout">
         <div>
@@ -878,7 +873,7 @@
     void sl.offsetWidth;
     sl.classList.add('entering');
     if (cur === 2) animateNumbers(sl);
-    if (window.snakeOnSlide) window.snakeOnSlide(cur);
+
     setTimeout(function () { busy = false; }, 900);
   }
 
@@ -911,223 +906,9 @@
   });
 
   slides[0].classList.add('entering');
-  if (window.snakeOnSlide) window.snakeOnSlide(0);
+
 })();
 </script>
 
-<script>
-(function () {
-  var canvas = document.getElementById('tetris-canvas');
-  var ctx    = canvas.getContext('2d');
-
-  var COLS = 10, CELL, ROWS, OX;
-
-  var SHAPES = [
-    null,
-    [[1,1,1,1]],
-    [[1,1],[1,1]],
-    [[0,1,0],[1,1,1]],
-    [[0,1,1],[1,1,0]],
-    [[1,1,0],[0,1,1]],
-    [[1,0,0],[1,1,1]],
-    [[0,0,1],[1,1,1]],
-  ];
-
-  var COLORS = [
-    null,
-    'rgba(109,191,160,.9)',
-    'rgba(46,107,74,.9)',
-    'rgba(78,148,108,.9)',
-    'rgba(140,200,170,.9)',
-    'rgba(30,65,46,.9)',
-    'rgba(62,125,88,.9)',
-    'rgba(95,165,120,.9)',
-  ];
-
-  var board, piece, pieceX, pieceY, score, lines, loop, running, dead, active;
-
-  function setDimensions() {
-    var p = canvas.parentElement;
-    canvas.width  = p.clientWidth  || window.innerWidth;
-    canvas.height = p.clientHeight || window.innerHeight;
-    CELL = Math.max(18, Math.floor(canvas.height / 28));
-    ROWS = Math.floor(canvas.height / CELL);
-    OX   = Math.round((canvas.width - COLS * CELL) / 2);
-  }
-
-  function makeBoard() {
-    board = [];
-    for (var r = 0; r < ROWS; r++) board.push(new Array(COLS).fill(0));
-  }
-
-  function rotate(mat) {
-    var R = mat.length, C = mat[0].length, out = [];
-    for (var c = 0; c < C; c++) {
-      out[c] = [];
-      for (var r = R - 1; r >= 0; r--) out[c][R - 1 - r] = mat[r][c];
-    }
-    return out;
-  }
-
-  function validPos(mat, px, py) {
-    for (var r = 0; r < mat.length; r++) {
-      for (var c = 0; c < mat[r].length; c++) {
-        if (!mat[r][c]) continue;
-        var nx = px + c, ny = py + r;
-        if (nx < 0 || nx >= COLS || ny >= ROWS) return false;
-        if (ny >= 0 && board[ny] && board[ny][nx]) return false;
-      }
-    }
-    return true;
-  }
-
-  function mergePiece() {
-    for (var r = 0; r < piece.length; r++) {
-      for (var c = 0; c < piece[r].length; c++) {
-        if (!piece[r][c]) continue;
-        var ny = pieceY + r;
-        if (ny >= 0 && ny < ROWS) board[ny][pieceX + c] = piece[r][c];
-      }
-    }
-  }
-
-  function clearLines() {
-    for (var r = ROWS - 1; r >= 0; r--) {
-      if (board[r].every(function (v) { return v !== 0; })) {
-        board.splice(r, 1);
-        board.unshift(new Array(COLS).fill(0));
-        lines++; r++;
-      }
-    }
-  }
-
-  function newPiece() {
-    var t = Math.floor(Math.random() * 7) + 1;
-    piece  = SHAPES[t].map(function (row) {
-      return row.map(function (v) { return v ? t : 0; });
-    });
-    pieceX = Math.floor((COLS - piece[0].length) / 2);
-    pieceY = -piece.length;
-  }
-
-  function ghostY() {
-    var gy = pieceY;
-    while (validPos(piece, pieceX, gy + 1)) gy++;
-    return gy;
-  }
-
-  function drawCell(c, r, type, alpha) {
-    ctx.globalAlpha = alpha !== undefined ? alpha : 1;
-    ctx.fillStyle = COLORS[type];
-    ctx.fillRect(OX + c * CELL + 1, r * CELL + 1, CELL - 2, CELL - 2);
-    ctx.globalAlpha = 1;
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    /* board */
-    for (var r = 0; r < ROWS; r++)
-      for (var c = 0; c < COLS; c++)
-        if (board[r][c]) drawCell(c, r, board[r][c]);
-
-    if (piece && !dead) {
-      /* ghost */
-      var gy = ghostY();
-      for (var r = 0; r < piece.length; r++)
-        for (var c = 0; c < piece[r].length; c++)
-          if (piece[r][c] && pieceY + r !== gy + r)
-            drawCell(c + pieceX, gy + r, piece[r][c], 0.18);
-
-      /* active piece */
-      for (var r = 0; r < piece.length; r++)
-        for (var c = 0; c < piece[r].length; c++)
-          if (piece[r][c] && pieceY + r >= 0)
-            drawCell(c + pieceX, pieceY + r, piece[r][c]);
-    }
-
-    /* hud */
-    ctx.save();
-    ctx.font = '500 10px Inter, sans-serif';
-    ctx.textAlign = 'right';
-    if (dead) {
-      ctx.fillStyle = 'rgba(109,191,160,.55)';
-      ctx.fillText('game over · R', OX + COLS * CELL - 4, CELL - 4);
-    } else {
-      ctx.fillStyle = 'rgba(109,191,160,.35)';
-      ctx.fillText(lines ? lines + (lines === 1 ? ' linha' : ' linhas') : 'A·D mover  W girar  S descer', OX + COLS * CELL - 4, CELL - 4);
-    }
-    ctx.restore();
-  }
-
-  function getSpeed() { return Math.max(120, 580 - lines * 18); }
-
-  function tick() {
-    if (!running) return;
-    pieceY++;
-    if (!validPos(piece, pieceX, pieceY)) {
-      pieceY--;
-      mergePiece();
-      clearLines();
-      newPiece();
-      if (!validPos(piece, pieceX, pieceY)) {
-        dead = true; running = false; clearInterval(loop);
-      } else {
-        clearInterval(loop);
-        loop = setInterval(tick, getSpeed());
-      }
-    }
-    draw();
-  }
-
-  function reset() {
-    setDimensions();
-    makeBoard();
-    score = 0; lines = 0; dead = false; running = true;
-    newPiece();
-    clearInterval(loop);
-    loop = setInterval(tick, getSpeed());
-    draw();
-  }
-
-  function pause()  { running = false; clearInterval(loop); }
-  function resume() { if (!dead && active) { running = true; loop = setInterval(tick, getSpeed()); } }
-
-  window.snakeOnSlide = function (idx) {
-    active = (idx === 8);
-    if (active) { if (!board) reset(); else resume(); }
-    else pause();
-  };
-
-  setDimensions();
-
-  document.addEventListener('keydown', function (e) {
-    if (!active) return;
-    if (e.key === 'r' || e.key === 'R') { reset(); return; }
-    if (!running) return;
-    if (e.key === 'a' || e.key === 'A') {
-      if (validPos(piece, pieceX - 1, pieceY)) { pieceX--; draw(); }
-    } else if (e.key === 'd' || e.key === 'D') {
-      if (validPos(piece, pieceX + 1, pieceY)) { pieceX++; draw(); }
-    } else if (e.key === 's' || e.key === 'S') {
-      pieceY++;
-      if (!validPos(piece, pieceX, pieceY)) pieceY--;
-      else draw();
-    } else if (e.key === 'w' || e.key === 'W') {
-      var rot = rotate(piece);
-      var kicks = [0, -1, 1, -2, 2];
-      for (var k = 0; k < kicks.length; k++) {
-        if (validPos(rot, pieceX + kicks[k], pieceY)) {
-          piece = rot; pieceX += kicks[k]; draw(); break;
-        }
-      }
-    } else if (e.key === ' ') {
-      while (validPos(piece, pieceX, pieceY + 1)) pieceY++;
-      tick();
-      e.preventDefault();
-    }
-  });
-})();
-</script>
 </body>
 </html>
