@@ -42,7 +42,7 @@
     .slide.dk { background: var(--ink); color: #F5F3EE; }
     .slide.dg { background: #1A3328; color: #F5F3EE; }
 
-    .wrap { max-width: 960px; margin: 0 auto; padding: 0 3rem; width: 100%; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 4.5rem; width: 100%; }
 
     /* GHOST */
     .ghost {
@@ -125,7 +125,7 @@
     a.hero-btn.solid:hover { background: #1f4e35; border-color: #1f4e35; }
 
     /* SLIDE 0 — HERO */
-    .hero-layout { display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: center; }
+    .hero-layout { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; }
     .hero-kicker { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--green); margin-bottom: 1.5rem; }
     h1 {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -300,7 +300,6 @@
     .cert-iss { font-size: 10px; color: var(--muted); font-weight: 400; margin-top: .1rem; }
 
     /* SLIDE 8 — CONTATO */
-    .ct-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
     h2.ct-h {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 700;
@@ -359,7 +358,9 @@
       .wrap { padding: 70px 1.5rem; }
       #dots, #btmbar { display: none; }
       .hero-layout, .sobre-grid, .tools-layout, .sankofa-layout,
-      .edu-layout, .ct-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+      .edu-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+      .ct-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+      .ct-game { display: none; }
       .nums-layout { grid-template-columns: 1fr; gap: 2rem; }
       .nums-grid { grid-template-columns: 1fr; }
       .nums-col { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,.1); padding-top: 1rem; }
@@ -374,23 +375,22 @@
       .pl-layout { grid-template-columns: 1fr; }
     }
 
-    /* HERO GAME */
-    .hero-game {
-      display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      flex-shrink: 0; align-self: center;
+    /* SLIDE 8 — CONTATO COM GAME */
+    .ct-layout { display: grid; grid-template-columns: 1fr 1fr 280px; gap: 3rem; align-items: center; }
+    .ct-game {
+      display: flex; flex-direction: column; align-items: center; gap: .5rem; flex-shrink: 0;
     }
-    #game-canvas { display: block; image-rendering: pixelated; border: 1px solid rgba(46,107,74,.18); }
+    #game-canvas { display: block; image-rendering: pixelated; border: 1px solid rgba(109,191,160,.15); }
     .game-score-row { display: flex; align-items: baseline; gap: .35rem; }
     .game-score-val {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.6rem; font-weight: 700; color: var(--green); line-height: 1;
+      font-size: 1.6rem; font-weight: 700; color: #6DBFA0; line-height: 1;
     }
     .game-score-lbl {
       font-size: 9px; font-weight: 600; letter-spacing: .16em;
-      text-transform: uppercase; color: var(--muted);
+      text-transform: uppercase; color: rgba(255,255,255,.3);
     }
-    .game-msg { font-size: 9px; color: var(--muted); letter-spacing: .06em; min-height: 1.2em; }
-    @media (max-width: 720px) { .hero-game { display: none; } }
+    .game-msg { font-size: 9px; color: rgba(255,255,255,.3); letter-spacing: .06em; min-height: 1.2em; }
   </style>
 </head>
 <body>
@@ -449,14 +449,7 @@
             <a href="https://www.linkedin.com/in/talia-oliveira" target="_blank" rel="noopener" class="hero-btn">LinkedIn</a>
           </div>
         </div>
-        <div class="hero-game">
-          <div class="game-score-row">
-            <span class="game-score-val" id="game-score-val">0</span>
-            <span class="game-score-lbl">pts</span>
-          </div>
-          <canvas id="game-canvas"></canvas>
-          <div class="game-msg" id="game-msg">WASD para jogar</div>
-        </div>
+        <div class="hero-accent"></div>
       </div>
     </div>
   </div>
@@ -811,6 +804,14 @@
           <div><div class="ct-lbl">LinkedIn</div><a class="ct-val" href="https://www.linkedin.com/in/talia-oliveira" target="_blank" rel="noopener">/in/talia-oliveira</a></div>
           <div><div class="ct-lbl">Localização</div><span class="ct-val">Salvador / BA · Foz do Iguaçu / PR</span></div>
         </div>
+        <div class="ct-game">
+          <div class="game-score-row">
+            <span class="game-score-val" id="game-score-val">0</span>
+            <span class="game-score-lbl">pts</span>
+          </div>
+          <canvas id="game-canvas"></canvas>
+          <div class="game-msg" id="game-msg">WASD para jogar</div>
+        </div>
       </div>
     </div>
   </div>
@@ -926,34 +927,34 @@
   }
 
   function drawIdle() {
-    ctx.fillStyle = '#F5F3EE';
+    ctx.fillStyle = '#1A3328';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(46,107,74,.07)';
+    ctx.fillStyle = 'rgba(109,191,160,.06)';
     for (var cx = 0; cx < COLS; cx++)
       for (var cy = 0; cy < ROWS; cy++)
         ctx.fillRect(cx * CELL + CELL / 2 - 1, cy * CELL + CELL / 2 - 1, 2, 2);
   }
 
   function draw() {
-    ctx.fillStyle = '#F5F3EE';
+    ctx.fillStyle = '#1A3328';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = 'rgba(46,107,74,.07)';
+    ctx.fillStyle = 'rgba(109,191,160,.06)';
     for (var cx = 0; cx < COLS; cx++)
       for (var cy = 0; cy < ROWS; cy++)
         ctx.fillRect(cx * CELL + CELL / 2 - 1, cy * CELL + CELL / 2 - 1, 2, 2);
 
-    ctx.fillStyle = '#2E6B4A';
+    ctx.fillStyle = '#6DBFA0';
     ctx.fillRect(food.x * CELL + 4, food.y * CELL + 4, CELL - 8, CELL - 8);
 
     snake.forEach(function (s, i) {
       var a = i === 0 ? 1 : Math.max(0.2, 1 - i * 0.04);
-      ctx.fillStyle = i === 0 ? '#2E6B4A' : 'rgba(46,107,74,' + a + ')';
+      ctx.fillStyle = i === 0 ? '#6DBFA0' : 'rgba(109,191,160,' + a + ')';
       ctx.fillRect(s.x * CELL + 1, s.y * CELL + 1, CELL - 2, CELL - 2);
     });
 
     if (dead) {
-      ctx.fillStyle = 'rgba(245,243,238,.6)';
+      ctx.fillStyle = 'rgba(26,51,40,.6)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
   }
@@ -994,7 +995,7 @@
 
   /* Called by slide navigator */
   window.snakeOnSlide = function (idx) {
-    active = (idx === 0);
+    active = (idx === 8);
     if (active) {
       if (!snake) { reset(); } else { resume(); msgEl.textContent = 'WASD para jogar'; }
     } else {
