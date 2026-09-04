@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no, email=no, address=no">
   <title>Talia Oliveira</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -358,26 +359,47 @@
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
-      html, body { overflow: auto; }
-      #ss { position: relative; transform: none !important; }
-      .slide { height: auto; min-height: 100vh; }
-      .wrap { padding: 70px 1.5rem; }
-      #dots, #btmbar { display: none; }
+      /* Mantém o sistema de slides — swipe funciona via JS */
+      html, body { overflow: hidden; height: 100%; }
+      .slide { height: 100svh; height: 100vh; }
+      .wrap { padding: 64px 1.4rem 52px; }
+      #dots { display: none; }
+      #btmbar { padding: 0 1.4rem; height: 44px; }
+      /* Slides com muito conteúdo rolam internamente */
+      #ss > .slide:nth-child(4),
+      #ss > .slide:nth-child(7),
+      #ss > .slide:nth-child(8) {
+        overflow-y: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      #ss > .slide:nth-child(4)::-webkit-scrollbar,
+      #ss > .slide:nth-child(7)::-webkit-scrollbar,
+      #ss > .slide:nth-child(8)::-webkit-scrollbar { display: none; }
+      /* Grids */
       .hero-layout, .sobre-grid, .tools-layout, .sankofa-layout,
-      .edu-layout { grid-template-columns: 1fr; gap: 1.5rem; }
-      .ct-layout { grid-template-columns: 1fr; gap: 1.5rem; }
-      .nums-layout { grid-template-columns: 1fr; gap: 2rem; }
-      .nums-grid { grid-template-columns: 1fr; }
-      .nums-col { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,.1); padding-top: 1rem; }
+      .edu-layout { grid-template-columns: 1fr; gap: 1.25rem; }
+      .ct-layout { grid-template-columns: 1fr; gap: 1.25rem; }
+      .nums-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+      .nums-grid { grid-template-columns: repeat(2, 1fr); }
+      .nums-col { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,.1); padding-top: .75rem; }
       .nums-col:first-child { border-top: none; padding-top: 0; }
       .pl-layout { grid-template-columns: 1fr 1fr; }
       .hero-accent { display: none; }
-      .exp-row { grid-template-columns: 1fr; gap: .4rem; }
-      .ct-list { gap: 1rem; }
+      .exp-row { grid-template-columns: 1fr; gap: .3rem; }
+      .exp-outros-label, .exp-minor { display: none; }
+      .ct-list { gap: .85rem; }
       .lead-row:hover, .proj-block:hover { transform: none; box-shadow: none; }
+      /* Tipografia mobile */
+      h1 { font-size: clamp(2.6rem, 10vw, 4rem); margin-bottom: .9rem; }
+      .hero-kicker { margin-bottom: .6rem; }
+      h2.s-title, h2.ct-h { font-size: clamp(2.5rem, 9vw, 4rem); }
+      .nums-val { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+      /* Links — sem cor azul de sistema */
+      a { -webkit-tap-highlight-color: rgba(0,0,0,0); }
     }
     @media (max-width: 460px) {
       .pl-layout { grid-template-columns: 1fr; }
+      .nums-grid { grid-template-columns: 1fr; }
     }
 
   </style>
@@ -876,11 +898,16 @@
   aprev.addEventListener('click', function () { go(cur - 1); });
   anext.addEventListener('click', function () { go(cur + 1); });
 
-  var ty0 = 0;
-  window.addEventListener('touchstart', function (e) { ty0 = e.touches[0].clientY; }, { passive: true });
+  var ty0 = 0, sy0 = 0;
+  window.addEventListener('touchstart', function (e) {
+    ty0 = e.touches[0].clientY;
+    sy0 = slides[cur] ? slides[cur].scrollTop : 0;
+  }, { passive: true });
   window.addEventListener('touchend', function (e) {
+    var sy1 = slides[cur] ? slides[cur].scrollTop : 0;
+    if (Math.abs(sy1 - sy0) > 8) return; /* foi scroll interno */
     var dy = ty0 - e.changedTouches[0].clientY;
-    if (Math.abs(dy) > 55) go(cur + (dy > 0 ? 1 : -1));
+    if (Math.abs(dy) > 50) go(cur + (dy > 0 ? 1 : -1));
   });
 
   slides[0].classList.add('entering');
